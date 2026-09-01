@@ -1,0 +1,2197 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Admin Dashboard | Aditya Hospital</title>
+
+
+<style>
+
+/* =====================================================
+   BASIC RESET
+===================================================== */
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+
+body {
+    background: #f4fbfd;
+    color: #173f55;
+}
+
+
+/* =====================================================
+   SIDEBAR
+===================================================== */
+
+.sidebar {
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 245px;
+    height: 100vh;
+
+    background: #103f58;
+
+    color: white;
+
+    padding: 25px 18px;
+
+    z-index: 1000;
+
+}
+
+
+.logo {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+    padding: 5px 10px 30px;
+
+}
+
+
+.logo img {
+
+    width: 48px;
+    height: 48px;
+
+    object-fit: contain;
+
+}
+
+
+.logo h2 {
+
+    font-size: 18px;
+
+}
+
+
+.logo p {
+
+    font-size: 8px;
+
+    color: #7bd5ef;
+
+    margin-top: 4px;
+
+    font-weight: bold;
+
+}
+
+
+.menu {
+
+    display: flex;
+
+    flex-direction: column;
+
+    gap: 7px;
+
+}
+
+
+.menu button {
+
+    width: 100%;
+
+    border: none;
+
+    background: transparent;
+
+    color: #c8e1e9;
+
+    padding: 13px;
+
+    text-align: left;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+
+}
+
+
+.menu button:hover,
+.menu button.active {
+
+    background: #168aad;
+
+    color: white;
+
+}
+
+
+.sidebar-bottom {
+
+    position: absolute;
+
+    bottom: 25px;
+
+    left: 18px;
+
+    right: 18px;
+
+}
+
+
+.logout {
+
+    width: 100%;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background: transparent;
+
+    color: #c8e1e9;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+}
+
+
+.logout:hover {
+
+    background: #c0392b;
+
+    color: white;
+
+}
+
+
+/* =====================================================
+   MAIN
+===================================================== */
+
+.main {
+
+    margin-left: 245px;
+
+    min-height: 100vh;
+
+    padding: 28px 35px;
+
+}
+
+
+/* =====================================================
+   TOP BAR
+===================================================== */
+
+.topbar {
+
+    display: flex;
+
+    justify-content: space-between;
+
+    align-items: center;
+
+    margin-bottom: 30px;
+
+}
+
+
+.welcome h1 {
+
+    font-size: 28px;
+
+    color: #123f57;
+
+}
+
+
+.welcome p {
+
+    color: #78909c;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+
+}
+
+
+.admin-profile {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 10px;
+
+}
+
+
+.admin-avatar {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: #dff5fa;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 20px;
+
+}
+
+
+.admin-profile strong {
+
+    font-size: 13px;
+
+    color: #244f63;
+
+}
+
+
+.admin-profile small {
+
+    display: block;
+
+    font-size: 10px;
+
+    color: #78909c;
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================================
+   STAT CARDS
+===================================================== */
+
+.stats {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(4, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+
+}
+
+
+.stat {
+
+    background: white;
+
+    border: 1px solid #e2eef3;
+
+    border-radius: 15px;
+
+    padding: 21px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 15px;
+
+}
+
+
+.stat-icon {
+
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    background: #e4f7fb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 21px;
+
+}
+
+
+.stat h3 {
+
+    font-size: 23px;
+
+    color: #123f57;
+
+}
+
+
+.stat p {
+
+    color: #78909c;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+
+}
+
+
+/* =====================================================
+   CARD
+===================================================== */
+
+.card {
+
+    background: white;
+
+    border: 1px solid #e2eef3;
+
+    border-radius: 15px;
+
+    padding: 24px;
+
+    margin-bottom: 22px;
+
+}
+
+
+.section-title {
+
+    color: #194b63;
+
+    font-size: 16px;
+
+    margin-bottom: 18px;
+
+}
+
+
+/* =====================================================
+   QUICK ACTIONS
+===================================================== */
+
+.actions {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.action {
+
+    border: 1px solid #e0edf2;
+
+    background: #f8fcfd;
+
+    border-radius: 12px;
+
+    padding: 20px;
+
+    cursor: pointer;
+
+    text-align: left;
+
+    transition: 0.2s;
+
+}
+
+
+.action:hover {
+
+    transform: translateY(-2px);
+
+    border-color: #168aad;
+
+    background: #f0fafc;
+
+}
+
+
+.action-icon {
+
+    font-size: 25px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.action h3 {
+
+    color: #194b63;
+
+    font-size: 13px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.action p {
+
+    color: #78909c;
+
+    font-size: 10px;
+
+    line-height: 1.5;
+
+}
+
+
+/* =====================================================
+   SEARCH
+===================================================== */
+
+.search-box {
+
+    display: flex;
+
+    gap: 10px;
+
+    margin-bottom: 18px;
+
+}
+
+
+.search-box input {
+
+    flex: 1;
+
+    padding: 13px;
+
+    border: 1px solid #d6e7ed;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 12px;
+
+}
+
+
+.search-box input:focus {
+
+    border-color: #168aad;
+
+}
+
+
+.search-box button {
+
+    border: none;
+
+    background: #168aad;
+
+    color: white;
+
+    padding: 0 20px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+}
+
+
+.search-box button:hover {
+
+    background: #105f7b;
+
+}
+
+
+/* =====================================================
+   TABLE
+===================================================== */
+
+.table-wrapper {
+
+    overflow-x: auto;
+
+}
+
+
+table {
+
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+
+}
+
+
+th {
+
+    background: #f2fafc;
+
+    color: #527384;
+
+    font-size: 10px;
+
+    text-align: left;
+
+    padding: 12px;
+
+}
+
+
+td {
+
+    padding: 13px 12px;
+
+    border-top: 1px solid #edf3f5;
+
+    font-size: 11px;
+
+    color: #426579;
+
+}
+
+
+.patient-id {
+
+    color: #168aad;
+
+    font-weight: bold;
+
+}
+
+
+.view-btn {
+
+    border: none;
+
+    background: #e4f7fb;
+
+    color: #126782;
+
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+}
+
+
+.view-btn:hover {
+
+    background: #cceef6;
+
+}
+
+
+/* =====================================================
+   DOCTORS
+===================================================== */
+
+.doctor-list {
+
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 15px;
+
+}
+
+
+.doctor {
+
+    border: 1px solid #e0edf2;
+
+    border-radius: 12px;
+
+    padding: 18px;
+
+    background: #f9fcfd;
+
+}
+
+
+.doctor-top {
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 12px;
+
+    margin-bottom: 12px;
+
+}
+
+
+.doctor-avatar {
+
+    width: 43px;
+    height: 43px;
+
+    border-radius: 50%;
+
+    background: #e4f7fb;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 19px;
+
+}
+
+
+.doctor h3 {
+
+    font-size: 13px;
+
+    color: #194b63;
+
+}
+
+
+.doctor p {
+
+    font-size: 10px;
+
+    color: #78909c;
+
+    margin-top: 4px;
+
+}
+
+
+.status {
+
+    display: inline-block;
+
+    padding: 6px 9px;
+
+    background: #edf9f2;
+
+    color: #25734a;
+
+    border-radius: 6px;
+
+    font-size: 9px;
+
+    font-weight: bold;
+
+}
+
+
+/* =====================================================
+   HOSPITAL INFORMATION
+===================================================== */
+
+.info-grid {
+
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 14px;
+
+}
+
+
+.info {
+
+    background: #f7fbfc;
+
+    padding: 14px;
+
+    border-radius: 9px;
+
+}
+
+
+.info small {
+
+    display: block;
+
+    color: #78909c;
+
+    font-size: 9px;
+
+    margin-bottom: 5px;
+
+}
+
+
+.info strong {
+
+    color: #31576a;
+
+    font-size: 12px;
+
+    word-break: break-word;
+
+}
+
+
+/* =====================================================
+   MOBILE HEADER
+===================================================== */
+
+.mobile-header {
+
+    display: none;
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+.mobile-menu {
+
+    display: none;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: #103f58;
+
+    z-index: 2000;
+
+    padding: 25px 18px;
+
+}
+
+
+.mobile-menu.show {
+
+    display: block;
+
+}
+
+
+.mobile-menu button {
+
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    margin-bottom: 5px;
+
+}
+
+
+.mobile-menu button:hover {
+
+    background: #168aad;
+
+}
+
+
+.close-menu {
+
+    color: white;
+
+    text-align: right;
+
+    font-size: 24px;
+
+    margin-bottom: 20px;
+
+    cursor: pointer;
+
+}
+
+
+/* =====================================================
+   RESPONSIVE
+===================================================== */
+
+@media(max-width: 1000px) {
+
+    .stats {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+    .doctor-list {
+
+        grid-template-columns:
+            repeat(2, 1fr);
+
+    }
+
+}
+
+
+@media(max-width: 750px) {
+
+    .sidebar {
+
+        display: none;
+
+    }
+
+
+    .main {
+
+        margin-left: 0;
+
+        padding: 18px;
+
+    }
+
+
+    .mobile-header {
+
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background: white;
+
+        padding: 11px 14px;
+
+        border-radius: 12px;
+
+        margin-bottom: 20px;
+
+        border: 1px solid #e2eef3;
+
+    }
+
+
+    .mobile-brand {
+
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+
+    }
+
+
+    .mobile-brand img {
+
+        width: 38px;
+        height: 38px;
+
+        object-fit: contain;
+
+    }
+
+
+    .mobile-brand strong {
+
+        font-size: 14px;
+
+        color: #123f57;
+
+    }
+
+
+    .menu-mobile {
+
+        border: none;
+
+        background: #e4f7fb;
+
+        color: #126782;
+
+        padding: 8px 11px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-size: 18px;
+
+    }
+
+
+    .topbar {
+
+        margin-bottom: 20px;
+
+    }
+
+
+    .admin-profile {
+
+        display: none;
+
+    }
+
+
+    .stats {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .actions {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .doctor-list {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .info-grid {
+
+        grid-template-columns: 1fr;
+
+    }
+
+
+    .search-box {
+
+        flex-direction: column;
+
+    }
+
+
+    .search-box button {
+
+        padding: 13px;
+
+    }
+
+}
+
+
+/* =====================================================
+   PRINT
+===================================================== */
+
+@media print {
+
+    .sidebar,
+    .mobile-header,
+    .mobile-menu {
+
+        display: none;
+
+    }
+
+
+    .main {
+
+        margin-left: 0;
+
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- =====================================================
+     SIDEBAR
+===================================================== -->
+
+<aside class="sidebar">
+
+
+    <div class="logo">
+
+        <img
+            src="logo.webp"
+            alt="Aditya Hospital Logo"
+        >
+
+
+        <div>
+
+            <h2>
+                Aditya Hospital
+            </h2>
+
+            <p>
+                WE TREAT. WE CARE. WE CURE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu">
+
+
+        <button
+            class="active"
+            onclick="goToSection('dashboard')">
+
+            🏠 Dashboard
+
+        </button>
+
+
+        <button
+            onclick="goToReception()">
+
+            👥 Patients
+
+        </button>
+
+
+        <button
+            onclick="goToDoctor()">
+
+            🩺 Doctor Dashboard
+
+        </button>
+
+
+        <button
+            onclick="goToSection('doctors')">
+
+            👨‍⚕️ Doctors
+
+        </button>
+
+
+        <button
+            onclick="goToSection('hospital')">
+
+            🏥 Hospital
+
+        </button>
+
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            ⇥ Logout
+
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- =====================================================
+     MOBILE HEADER
+===================================================== -->
+
+<div class="mobile-header">
+
+
+    <div class="mobile-brand">
+
+        <img
+            src="logo.webp"
+            alt="Aditya Hospital"
+        >
+
+
+        <strong>
+            Aditya Hospital
+        </strong>
+
+    </div>
+
+
+    <button
+        class="menu-mobile"
+        onclick="openMobileMenu()">
+
+        ☰
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     MOBILE MENU
+===================================================== -->
+
+<div
+    class="mobile-menu"
+    id="mobileMenu">
+
+
+    <div
+        class="close-menu"
+        onclick="closeMobileMenu()">
+
+        ×
+
+    </div>
+
+
+    <button
+        onclick="goToSection('dashboard'); closeMobileMenu();">
+
+        🏠 Dashboard
+
+    </button>
+
+
+    <button
+        onclick="goToReception()">
+
+        👥 Patients
+
+    </button>
+
+
+    <button
+        onclick="goToDoctor()">
+
+        🩺 Doctor Dashboard
+
+    </button>
+
+
+    <button
+        onclick="goToSection('doctors'); closeMobileMenu();">
+
+        👨‍⚕️ Doctors
+
+    </button>
+
+
+    <button
+        onclick="goToSection('hospital'); closeMobileMenu();">
+
+        🏥 Hospital
+
+    </button>
+
+
+    <button onclick="logout()">
+
+        ⇥ Logout
+
+    </button>
+
+</div>
+
+
+<!-- =====================================================
+     MAIN
+===================================================== -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+
+        <div
+            class="welcome"
+            id="dashboard">
+
+
+            <h1>
+                Hospital Dashboard 👋
+            </h1>
+
+
+            <p>
+                Welcome to the Aditya Hospital
+                administration panel.
+            </p>
+
+        </div>
+
+
+        <div class="admin-profile">
+
+
+            <div class="admin-avatar">
+                👨‍💼
+            </div>
+
+
+            <div>
+
+                <strong>
+                    Administrator
+                </strong>
+
+
+                <small>
+                    Hospital Admin
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- =================================================
+         STATISTICS
+    ================================================= -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+
+            <div>
+
+                <h3
+                    id="totalPatients">
+                    0
+                </h3>
+
+
+                <p>
+                    Total Patients
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+
+            <div class="stat-icon">
+                📅
+            </div>
+
+
+            <div>
+
+                <h3
+                    id="todayPatients">
+                    0
+                </h3>
+
+
+                <p>
+                    Today's Patients
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+
+            <div class="stat-icon">
+                👨‍⚕️
+            </div>
+
+
+            <div>
+
+                <h3>
+                    1
+                </h3>
+
+
+                <p>
+                    Doctors
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+
+            <div class="stat-icon">
+                🩺
+            </div>
+
+
+            <div>
+
+                <h3
+                    id="totalConsultations">
+                    0
+                </h3>
+
+
+                <p>
+                    Consultations
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- =================================================
+         QUICK ACTIONS
+    ================================================= -->
+
+    <section class="card">
+
+
+        <h2 class="section-title">
+            ⚡ Quick Actions
+        </h2>
+
+
+        <div class="actions">
+
+
+            <div
+                class="action"
+                onclick="goToReception()">
+
+
+                <div class="action-icon">
+                    👥
+                </div>
+
+
+                <h3>
+                    Manage Patients
+                </h3>
+
+
+                <p>
+                    Register, search and view
+                    patient records.
+                </p>
+
+            </div>
+
+
+            <div
+                class="action"
+                onclick="goToDoctor()">
+
+
+                <div class="action-icon">
+                    🩺
+                </div>
+
+
+                <h3>
+                    Doctor Dashboard
+                </h3>
+
+
+                <p>
+                    View consultations and
+                    manage patient visits.
+                </p>
+
+            </div>
+
+
+            <div
+                class="action"
+                onclick="goToSection('hospital')">
+
+
+                <div class="action-icon">
+                    🏥
+                </div>
+
+
+                <h3>
+                    Hospital Information
+                </h3>
+
+
+                <p>
+                    View Aditya Hospital's
+                    contact and address details.
+                </p>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         RECENT PATIENTS
+    ================================================= -->
+
+    <section class="card">
+
+
+        <h2 class="section-title">
+            📋 Recent Patients
+        </h2>
+
+
+        <div class="search-box">
+
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search patient by ID, name or mobile..."
+                oninput="searchPatients()"
+            >
+
+
+            <button
+                onclick="searchPatients()">
+
+                Search
+
+            </button>
+
+
+        </div>
+
+
+        <div class="table-wrapper">
+
+
+            <table>
+
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            PATIENT ID
+                        </th>
+
+                        <th>
+                            NAME
+                        </th>
+
+                        <th>
+                            AGE
+                        </th>
+
+                        <th>
+                            GENDER
+                        </th>
+
+                        <th>
+                            MOBILE
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="patientTable">
+
+                </tbody>
+
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         DOCTORS
+    ================================================= -->
+
+    <section
+        class="card"
+        id="doctors">
+
+
+        <h2 class="section-title">
+            👨‍⚕️ Hospital Doctors
+        </h2>
+
+
+        <div class="doctor-list">
+
+
+            <div class="doctor">
+
+
+                <div class="doctor-top">
+
+
+                    <div class="doctor-avatar">
+                        👨‍⚕️
+                    </div>
+
+
+                    <div>
+
+                        <h3>
+                            Doctor Fegde
+                        </h3>
+
+                        <p>
+                            BAMS
+                        </p>
+
+                    </div>
+
+                </div>
+
+
+                <span class="status">
+                    ● ACTIVE
+                </span>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+    <!-- =================================================
+         HOSPITAL INFORMATION
+    ================================================= -->
+
+    <section
+        class="card"
+        id="hospital">
+
+
+        <h2 class="section-title">
+            🏥 Hospital Information
+        </h2>
+
+
+        <div class="info-grid">
+
+
+            <div class="info">
+
+                <small>
+                    HOSPITAL NAME
+                </small>
+
+                <strong>
+                    Aditya Hospital
+                </strong>
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    TAGLINE
+                </small>
+
+                <strong>
+                    We Treat. We Care. We Cure.
+                </strong>
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    ADDRESS
+                </small>
+
+                <strong>
+                    "Krishna", Station Road,
+                    Barabh Gaon,
+                    Taluka Bhuraval,
+                    Jilla Jalgaon
+                </strong>
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    PHONE
+                </small>
+
+                <strong>
+                    9403567706
+                </strong>
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    EMAIL
+                </small>
+
+                <strong>
+                    adityahospital1100@gmail.com
+                </strong>
+
+            </div>
+
+
+            <div class="info">
+
+                <small>
+                    PATIENT ID FORMAT
+                </small>
+
+                <strong>
+                    ADH-2026-00001
+                </strong>
+
+            </div>
+
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   LOGIN CHECK
+===================================================== */
+
+const role =
+    sessionStorage.getItem(
+        "careSyncRole"
+    );
+
+
+if (
+    role !== "admin"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* =====================================================
+   GET PATIENTS
+===================================================== */
+
+let patients =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncPatients"
+        )
+    ) || [];
+
+
+/* =====================================================
+   UPDATE DASHBOARD
+===================================================== */
+
+function updateDashboard() {
+
+
+    patients =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncPatients"
+            )
+        ) || [];
+
+
+    document
+        .getElementById("totalPatients")
+        .textContent =
+        patients.length;
+
+
+    const today =
+        new Date()
+            .toLocaleDateString();
+
+
+    const todayList =
+        patients.filter(patient => {
+
+            if (!patient.date) {
+
+                return false;
+
+            }
+
+
+            return new Date(
+                patient.date
+            ).toLocaleDateString()
+                === today;
+
+        });
+
+
+    document
+        .getElementById("todayPatients")
+        .textContent =
+        todayList.length;
+
+
+    let consultations = 0;
+
+
+    patients.forEach(patient => {
+
+        if (
+            patient.consultations &&
+            Array.isArray(
+                patient.consultations
+            )
+        ) {
+
+            consultations +=
+                patient.consultations.length;
+
+        }
+
+    });
+
+
+    document
+        .getElementById(
+            "totalConsultations"
+        )
+        .textContent =
+        consultations;
+
+
+    displayPatients(
+        patients
+            .slice()
+            .reverse()
+            .slice(0, 10)
+    );
+
+}
+
+
+updateDashboard();
+
+
+/* =====================================================
+   SEARCH PATIENTS
+===================================================== */
+
+function searchPatients() {
+
+
+    const query =
+        document
+            .getElementById(
+                "searchInput"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if (!query) {
+
+        displayPatients(
+            patients
+                .slice()
+                .reverse()
+                .slice(0, 10)
+        );
+
+        return;
+
+    }
+
+
+    const results =
+        patients.filter(patient => {
+
+            return (
+
+                String(
+                    patient.id || ""
+                )
+                .toLowerCase()
+                .includes(query)
+
+                ||
+
+                String(
+                    patient.name || ""
+                )
+                .toLowerCase()
+                .includes(query)
+
+                ||
+
+                String(
+                    patient.mobile || ""
+                )
+                .toLowerCase()
+                .includes(query)
+
+            );
+
+        });
+
+
+    displayPatients(results);
+
+}
+
+
+/* =====================================================
+   DISPLAY PATIENTS
+===================================================== */
+
+function displayPatients(list) {
+
+
+    const table =
+        document
+            .getElementById(
+                "patientTable"
+            );
+
+
+    if (list.length === 0) {
+
+        table.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        padding:25px;
+                        color:#90a4ae;
+                    ">
+
+                    No patients found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    table.innerHTML =
+        list.map(patient => {
+
+            return `
+
+                <tr>
+
+                    <td>
+
+                        <span class="patient-id">
+
+                            ${escapeHTML(
+                                patient.id || "—"
+                            )}
+
+                        </span>
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            patient.name || "—"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            patient.age || "—"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            patient.gender || "—"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        ${escapeHTML(
+                            patient.mobile || "—"
+                        )}
+
+                    </td>
+
+
+                    <td>
+
+                        <button
+                            class="view-btn"
+                            onclick="viewPatient('${encodeURIComponent(patient.id)}')">
+
+                            View
+
+                        </button>
+
+                    </td>
+
+                </tr>
+
+            `;
+
+        })
+        .join("");
+
+}
+
+
+/* =====================================================
+   VIEW PATIENT
+===================================================== */
+
+function viewPatient(id) {
+
+
+    const decoded =
+        decodeURIComponent(id);
+
+
+    window.location.href =
+        "patient.html?patient=" +
+        encodeURIComponent(decoded);
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* =====================================================
+   NAVIGATION
+===================================================== */
+
+function goToReception() {
+
+    window.location.href =
+        "reception.html";
+
+}
+
+
+function goToDoctor() {
+
+    window.location.href =
+        "doctor.html";
+
+}
+
+
+function goToSection(id) {
+
+    const element =
+        document.getElementById(id);
+
+
+    if (element) {
+
+        element.scrollIntoView({
+            behavior: "smooth"
+        });
+
+    }
+
+}
+
+
+/* =====================================================
+   MOBILE MENU
+===================================================== */
+
+function openMobileMenu() {
+
+    document
+        .getElementById(
+            "mobileMenu"
+        )
+        .classList
+        .add("show");
+
+}
+
+
+function closeMobileMenu() {
+
+    document
+        .getElementById(
+            "mobileMenu"
+        )
+        .classList
+        .remove("show");
+
+}
+
+
+/* =====================================================
+   LOGOUT
+===================================================== */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "careSyncRole"
+    );
+
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

@@ -1,0 +1,196 @@
+.title {
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    color: #123f57;
+}
+
+.title p {
+    color: #78909c;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.doctor-info {
+    text-align: right;
+}
+
+.doctor-info strong {
+    display: block;
+    color: #194b63;
+    font-size: 13px;
+}
+
+.doctor-info small {
+    color: #78909c;
+    font-size: 10px;
+}
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e1edf2;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.stat-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.stat h3 {
+    color: #123f57;
+    font-size: 24px;
+}
+
+.stat p {
+    color: #78909c;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+.card-title {
+    color: #194b63;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+.queue-item {
+    border: 1px solid #dfedf2;
+    border-radius: 12px;
+    padding: 17px;
+    margin-bottom: 12px;
+    background: #fbfdfe;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.queue-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.token {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #e4f7fb;
+    color: #126782;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.patient-name {
+    color: #194b63;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.patient-details {
+    color: #78909c;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.start-btn,
+.complete-btn,
+.view-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 13px;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.start-btn {
+    background: #168aad;
+    color: white;
+}
+
+.start-btn:hover {
+    background: #105f7b;
+}
+
+.complete-btn {
+    background: #eaf7ef;
+    color: #26734a;
+}
+
+.view-btn {
+    background: #e8f5f8;
+    color: #126782;
+}
+
+.status {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.waiting {
+    background: #fff5d9;
+    color: #916d16;
+}
+
+.consultation {
+    background: #e8f1ff;
+    color: #285b91;
+}
+
+.completed {
+    background: #edf9f2;
+    color: #25734a;
+}
+
+@media (max-width: 750px) {
+
+    .doctor-info {
+        display: none;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .queue-item {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .queue-left {
+        width: 100%;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons button {
+        flex: 1;
+    }
+}

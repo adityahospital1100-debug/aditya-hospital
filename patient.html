@@ -1,0 +1,1031 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Patient Profile | Aditya Hospital</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4fbfd;
+    color: #173f55;
+}
+
+
+/* ================= HEADER ================= */
+
+.header {
+    background: white;
+
+    height: 76px;
+
+    padding: 0 6%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    border-bottom: 1px solid #e2eef3;
+}
+
+.brand {
+    display: flex;
+
+    align-items: center;
+
+    gap: 11px;
+}
+
+.brand img {
+    width: 50px;
+    height: 50px;
+
+    object-fit: contain;
+}
+
+.brand h2 {
+    color: #103f58;
+
+    font-size: 19px;
+}
+
+.brand p {
+    color: #168aad;
+
+    font-size: 8px;
+
+    font-weight: bold;
+
+    margin-top: 3px;
+}
+
+.back-btn {
+    border: 1px solid #cfe5ec;
+
+    background: white;
+
+    color: #31576a;
+
+    padding: 10px 15px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 12px;
+}
+
+.back-btn:hover {
+    background: #eaf8fc;
+
+    border-color: #168aad;
+}
+
+
+/* ================= MAIN ================= */
+
+.container {
+    max-width: 1100px;
+
+    margin: 35px auto;
+
+    padding: 0 20px;
+}
+
+
+/* ================= TITLE ================= */
+
+.page-title {
+    margin-bottom: 25px;
+}
+
+.page-title h1 {
+    color: #123f57;
+
+    font-size: 29px;
+
+    margin-bottom: 6px;
+}
+
+.page-title p {
+    color: #78909c;
+
+    font-size: 12px;
+}
+
+
+/* ================= PATIENT HEADER ================= */
+
+.patient-header {
+    background:
+        linear-gradient(
+            135deg,
+            #104c6b,
+            #168aad
+        );
+
+    color: white;
+
+    border-radius: 17px;
+
+    padding: 30px;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: space-between;
+
+    margin-bottom: 20px;
+
+    box-shadow:
+        0 12px 35px
+        rgba(15, 90, 120, 0.12);
+}
+
+.patient-main {
+    display: flex;
+
+    align-items: center;
+
+    gap: 18px;
+}
+
+.patient-avatar {
+    width: 70px;
+    height: 70px;
+
+    background: rgba(255,255,255,0.13);
+
+    border-radius: 50%;
+
+    display: flex;
+
+    align-items: center;
+
+    justify-content: center;
+
+    font-size: 30px;
+}
+
+.patient-name {
+    font-size: 23px;
+
+    margin-bottom: 7px;
+}
+
+.patient-id {
+    font-size: 11px;
+
+    color: #bcebf5;
+
+    font-weight: bold;
+}
+
+.patient-status {
+    background: rgba(255,255,255,0.13);
+
+    padding: 9px 13px;
+
+    border-radius: 8px;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+
+/* ================= GRID ================= */
+
+.grid {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 20px;
+}
+
+
+/* ================= CARD ================= */
+
+.card {
+    background: white;
+
+    border: 1px solid #e0edf2;
+
+    border-radius: 15px;
+
+    padding: 24px;
+
+    margin-bottom: 20px;
+}
+
+.card-title {
+    color: #194b63;
+
+    font-size: 15px;
+
+    margin-bottom: 18px;
+
+    display: flex;
+
+    align-items: center;
+
+    gap: 8px;
+}
+
+
+/* ================= DETAILS ================= */
+
+.details {
+    display: grid;
+
+    grid-template-columns:
+        1fr 1fr;
+
+    gap: 13px;
+}
+
+.detail {
+    background: #f6fbfd;
+
+    border-radius: 9px;
+
+    padding: 13px;
+}
+
+.detail small {
+    display: block;
+
+    color: #78909c;
+
+    font-size: 9px;
+
+    margin-bottom: 5px;
+}
+
+.detail strong {
+    color: #31576a;
+
+    font-size: 12px;
+
+    word-break: break-word;
+}
+
+
+/* ================= VISIT ================= */
+
+.visit {
+    border-left: 3px solid #168aad;
+
+    background: #f7fcfd;
+
+    border-radius: 0 9px 9px 0;
+
+    padding: 17px;
+
+    margin-bottom: 13px;
+}
+
+.visit:last-child {
+    margin-bottom: 0;
+}
+
+.visit-top {
+    display: flex;
+
+    justify-content: space-between;
+
+    gap: 10px;
+
+    margin-bottom: 10px;
+}
+
+.visit-date {
+    color: #168aad;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+.visit-doctor {
+    color: #78909c;
+
+    font-size: 10px;
+}
+
+.visit-row {
+    margin-top: 8px;
+
+    font-size: 12px;
+
+    color: #607d8b;
+
+    line-height: 1.6;
+}
+
+.visit-row strong {
+    color: #31576a;
+}
+
+
+/* ================= EMPTY ================= */
+
+.empty {
+    color: #90a4ae;
+
+    font-size: 12px;
+
+    text-align: center;
+
+    padding: 20px 5px;
+}
+
+
+/* ================= PRINT ================= */
+
+.print-btn {
+    background: #168aad;
+
+    color: white;
+
+    border: none;
+
+    padding: 11px 17px;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    font-size: 11px;
+
+    font-weight: bold;
+
+    margin-top: 5px;
+}
+
+.print-btn:hover {
+    background: #105f7b;
+}
+
+
+/* ================= RESPONSIVE ================= */
+
+@media(max-width: 700px) {
+
+    .header {
+        padding: 0 18px;
+    }
+
+    .brand h2 {
+        font-size: 16px;
+    }
+
+    .brand p {
+        display: none;
+    }
+
+    .brand img {
+        width: 42px;
+        height: 42px;
+    }
+
+    .container {
+        margin-top: 22px;
+
+        padding: 0 14px;
+    }
+
+    .patient-header {
+        padding: 22px;
+
+        align-items: flex-start;
+
+        gap: 15px;
+
+        flex-direction: column;
+    }
+
+    .patient-name {
+        font-size: 20px;
+    }
+
+    .grid {
+        grid-template-columns: 1fr;
+
+        gap: 0;
+    }
+
+    .details {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .visit-top {
+        flex-direction: column;
+
+        gap: 4px;
+    }
+
+}
+
+@media(max-width: 430px) {
+
+    .back-btn {
+        padding: 8px 10px;
+
+        font-size: 10px;
+    }
+
+    .page-title h1 {
+        font-size: 24px;
+    }
+
+    .details {
+        grid-template-columns: 1fr;
+    }
+
+    .patient-main {
+        align-items: flex-start;
+    }
+
+}
+
+@media print {
+
+    .header,
+    .back-btn,
+    .print-btn {
+        display: none;
+    }
+
+    body {
+        background: white;
+    }
+
+    .container {
+        margin: 0;
+
+        max-width: none;
+    }
+
+    .patient-header {
+        box-shadow: none;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- ================= HEADER ================= -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            src="logo.webp"
+            alt="Aditya Hospital Logo"
+        >
+
+        <div>
+
+            <h2>
+                Aditya Hospital
+            </h2>
+
+            <p>
+                WE TREAT. WE CARE. WE CURE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <button
+        class="back-btn"
+        onclick="goBack()">
+
+        ← Doctor Dashboard
+
+    </button>
+
+</header>
+
+
+<!-- ================= MAIN ================= -->
+
+<main class="container">
+
+
+    <div class="page-title">
+
+        <h1>
+            Patient Profile
+        </h1>
+
+        <p>
+            Digital patient information and consultation history.
+        </p>
+
+    </div>
+
+
+    <!-- ================= PATIENT HEADER ================= -->
+
+    <section class="patient-header">
+
+
+        <div class="patient-main">
+
+            <div class="patient-avatar">
+                👤
+            </div>
+
+
+            <div>
+
+                <div
+                    class="patient-name"
+                    id="patientName">
+
+                    Loading...
+
+                </div>
+
+
+                <div
+                    class="patient-id"
+                    id="patientID">
+
+                </div>
+
+            </div>
+
+        </div>
+
+
+        <div class="patient-status">
+
+            ● REGISTERED PATIENT
+
+        </div>
+
+
+    </section>
+
+
+    <!-- ================= INFORMATION ================= -->
+
+    <div class="grid">
+
+
+        <section class="card">
+
+            <h2 class="card-title">
+                👤 Personal Information
+            </h2>
+
+
+            <div class="details">
+
+
+                <div class="detail">
+
+                    <small>
+                        AGE
+                    </small>
+
+                    <strong id="age">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        GENDER
+                    </small>
+
+                    <strong id="gender">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        HEIGHT
+                    </small>
+
+                    <strong id="height">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        VILLAGE
+                    </small>
+
+                    <strong id="village">
+                        —
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+        <section class="card">
+
+            <h2 class="card-title">
+                📞 Contact Information
+            </h2>
+
+
+            <div class="details">
+
+
+                <div class="detail">
+
+                    <small>
+                        MOBILE
+                    </small>
+
+                    <strong id="mobile">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        ADDRESS
+                    </small>
+
+                    <strong id="address">
+                        —
+                    </strong>
+
+                </div>
+
+
+                <div class="detail">
+
+                    <small>
+                        REGISTRATION DATE
+                    </small>
+
+                    <strong id="date">
+                        —
+                    </strong>
+
+                </div>
+
+
+            </div>
+
+        </section>
+
+
+    </div>
+
+
+    <!-- ================= CONSULTATIONS ================= -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+
+            🩺 Consultation History
+
+        </h2>
+
+
+        <div id="consultationList">
+
+            <div class="empty">
+
+                No consultation history available.
+
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ================= PRINT ================= -->
+
+    <button
+        class="print-btn"
+        onclick="window.print()">
+
+        🖨️ Print Patient Record
+
+    </button>
+
+
+</main>
+
+
+<script>
+
+
+/* ================= GET PATIENT ID ================= */
+
+const params =
+    new URLSearchParams(
+        window.location.search
+    );
+
+
+const patientID =
+    params.get("patient");
+
+
+/* ================= GET PATIENTS ================= */
+
+const patients =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncPatients"
+        )
+    ) || [];
+
+
+/* ================= FIND PATIENT ================= */
+
+const patient =
+    patients.find(
+        p =>
+            String(p.id) ===
+            String(patientID)
+    );
+
+
+/* ================= DISPLAY ================= */
+
+if (!patient) {
+
+    document
+        .getElementById("patientName")
+        .textContent =
+        "Patient not found";
+
+
+    document
+        .getElementById("patientID")
+        .textContent =
+        "The requested patient record could not be found.";
+
+} else {
+
+
+    document
+        .getElementById("patientName")
+        .textContent =
+        patient.name || "Unknown";
+
+
+    document
+        .getElementById("patientID")
+        .textContent =
+        patient.id || "—";
+
+
+    document
+        .getElementById("age")
+        .textContent =
+        patient.age || "—";
+
+
+    document
+        .getElementById("gender")
+        .textContent =
+        patient.gender || "—";
+
+
+    document
+        .getElementById("height")
+        .textContent =
+        patient.height
+            ? patient.height + " cm"
+            : "—";
+
+
+    document
+        .getElementById("village")
+        .textContent =
+        patient.village || "—";
+
+
+    document
+        .getElementById("mobile")
+        .textContent =
+        patient.mobile || "—";
+
+
+    document
+        .getElementById("address")
+        .textContent =
+        patient.address || "—";
+
+
+    document
+        .getElementById("date")
+        .textContent =
+        patient.date
+            ? new Date(
+                patient.date
+            ).toLocaleDateString()
+            : "—";
+
+
+    displayConsultations(
+        patient.consultations || []
+    );
+
+}
+
+
+/* ================= CONSULTATIONS ================= */
+
+function displayConsultations(
+    consultations
+) {
+
+
+    const container =
+        document.getElementById(
+            "consultationList"
+        );
+
+
+    if (
+        !consultations ||
+        consultations.length === 0
+    ) {
+
+        container.innerHTML = `
+
+            <div class="empty">
+
+                No consultation history available.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    container.innerHTML =
+        consultations
+            .slice()
+            .reverse()
+            .map(visit => {
+
+                return `
+
+                    <div class="visit">
+
+                        <div class="visit-top">
+
+                            <div class="visit-date">
+
+                                ${new Date(
+                                    visit.date
+                                ).toLocaleString()}
+
+                            </div>
+
+                            <div class="visit-doctor">
+
+                                ${visit.doctor || "Doctor"}
+
+                            </div>
+
+                        </div>
+
+
+                        <div class="visit-row">
+
+                            <strong>
+                                Diagnosis:
+                            </strong>
+
+                            ${escapeHTML(
+                                visit.diagnosis || "—"
+                            )}
+
+                        </div>
+
+
+                        <div class="visit-row">
+
+                            <strong>
+                                Prescription:
+                            </strong>
+
+                            ${escapeHTML(
+                                visit.prescription || "—"
+                            )}
+
+                        </div>
+
+
+                        <div class="visit-row">
+
+                            <strong>
+                                Doctor's Notes:
+                            </strong>
+
+                            ${escapeHTML(
+                                visit.notes || "—"
+                            )}
+
+                        </div>
+
+                    </div>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* ================= SAFE TEXT ================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* ================= BACK ================= */
+
+function goBack() {
+
+    window.location.href =
+        "doctor.html";
+
+}
+
+</script>
+
+
+</body>
+
+</html>

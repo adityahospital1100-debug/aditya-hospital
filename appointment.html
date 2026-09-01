@@ -1,0 +1,1085 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/appointments.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Appointments | Aditya Hospital</title>
+
+<style>
+
+*{
+    margin:0;
+    padding:0;
+    box-sizing:border-box;
+    font-family:Arial,Helvetica,sans-serif;
+}
+
+body{
+    background:#f4fbfd;
+    color:#173f55;
+}
+
+/* HEADER */
+
+.header{
+    height:75px;
+    background:white;
+    border-bottom:1px solid #e1edf2;
+    padding:0 6%;
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+}
+
+.brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+}
+
+.brand img{
+    width:48px;
+    height:48px;
+    object-fit:contain;
+}
+
+.brand h2{
+    font-size:18px;
+    color:#103f58;
+}
+
+.brand p{
+    font-size:8px;
+    color:#168aad;
+    font-weight:bold;
+    margin-top:3px;
+}
+
+.back{
+    border:1px solid #d5e8ee;
+    background:white;
+    color:#31576a;
+    padding:10px 15px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+.back:hover{
+    background:#eaf8fc;
+}
+
+/* MAIN */
+
+.container{
+    max-width:1100px;
+    margin:30px auto;
+    padding:0 20px;
+}
+
+.title{
+    margin-bottom:25px;
+}
+
+.title h1{
+    font-size:28px;
+    color:#123f57;
+}
+
+.title p{
+    margin-top:6px;
+    color:#78909c;
+    font-size:12px;
+}
+
+/* LAYOUT */
+
+.grid{
+    display:grid;
+    grid-template-columns:1fr 1.3fr;
+    gap:20px;
+}
+
+/* CARD */
+
+.card{
+    background:white;
+    border:1px solid #e1edf2;
+    border-radius:15px;
+    padding:24px;
+    margin-bottom:20px;
+}
+
+.card h2{
+    color:#194b63;
+    font-size:16px;
+    margin-bottom:20px;
+}
+
+/* FORM */
+
+label{
+    display:block;
+    color:#426579;
+    font-size:10px;
+    font-weight:bold;
+    margin-bottom:7px;
+}
+
+input,
+select{
+    width:100%;
+    padding:12px;
+    border:1px solid #d6e7ed;
+    border-radius:8px;
+    outline:none;
+    font-size:12px;
+    color:#31576a;
+    margin-bottom:15px;
+}
+
+input:focus,
+select:focus{
+    border-color:#168aad;
+}
+
+.patient-result{
+    background:#f1fafc;
+    border:1px solid #d9edf2;
+    border-radius:9px;
+    padding:12px;
+    margin-bottom:15px;
+    display:none;
+    font-size:11px;
+}
+
+.patient-result strong{
+    color:#168aad;
+}
+
+.book{
+    width:100%;
+    border:none;
+    background:#168aad;
+    color:white;
+    padding:13px;
+    border-radius:9px;
+    cursor:pointer;
+    font-weight:bold;
+    font-size:12px;
+}
+
+.book:hover{
+    background:#105f7b;
+}
+
+/* SUCCESS */
+
+.success{
+    display:none;
+    background:#edf9f2;
+    color:#25734a;
+    border:1px solid #ccebd9;
+    padding:14px;
+    border-radius:9px;
+    margin-bottom:20px;
+    font-size:12px;
+}
+
+/* SEARCH */
+
+.search{
+    display:flex;
+    gap:10px;
+}
+
+.search input{
+    margin:0;
+}
+
+.search button{
+    border:none;
+    background:#168aad;
+    color:white;
+    padding:0 18px;
+    border-radius:8px;
+    cursor:pointer;
+}
+
+/* APPOINTMENTS */
+
+.appointment{
+    border:1px solid #e1edf2;
+    border-left:4px solid #168aad;
+    border-radius:10px;
+    padding:16px;
+    margin-bottom:12px;
+    background:#fbfdfe;
+}
+
+.appointment-top{
+    display:flex;
+    justify-content:space-between;
+    margin-bottom:10px;
+}
+
+.token{
+    background:#e4f7fb;
+    color:#126782;
+    padding:7px 10px;
+    border-radius:7px;
+    font-weight:bold;
+    font-size:11px;
+}
+
+.status{
+    padding:7px 10px;
+    border-radius:7px;
+    font-size:9px;
+    font-weight:bold;
+    background:#fff5d9;
+    color:#916d16;
+}
+
+.status.completed{
+    background:#edf9f2;
+    color:#25734a;
+}
+
+.status.consultation{
+    background:#e8f1ff;
+    color:#285b91;
+}
+
+.patient-name{
+    font-size:14px;
+    color:#194b63;
+    font-weight:bold;
+    margin-bottom:6px;
+}
+
+.info{
+    font-size:10px;
+    color:#78909c;
+    line-height:1.7;
+}
+
+.empty{
+    text-align:center;
+    color:#90a4ae;
+    padding:25px;
+    font-size:12px;
+}
+
+/* MOBILE */
+
+@media(max-width:800px){
+
+    .grid{
+        grid-template-columns:1fr;
+    }
+
+}
+
+@media(max-width:600px){
+
+    .header{
+        padding:0 15px;
+    }
+
+    .brand h2{
+        font-size:15px;
+    }
+
+    .brand p{
+        display:none;
+    }
+
+    .brand img{
+        width:40px;
+        height:40px;
+    }
+
+    .container{
+        padding:0 14px;
+        margin-top:20px;
+    }
+
+    .title h1{
+        font-size:24px;
+    }
+
+    .search{
+        flex-direction:column;
+    }
+
+    .search button{
+        padding:12px;
+    }
+
+    .appointment-top{
+        align-items:flex-start;
+        gap:10px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <img src="logo.webp" alt="Aditya Hospital">
+
+        <div>
+
+            <h2>Aditya Hospital</h2>
+
+            <p>WE TREAT. WE CARE. WE CURE.</p>
+
+        </div>
+
+    </div>
+
+    <button class="back" onclick="goBack()">
+        ← Reception
+    </button>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+    <div class="title">
+
+        <h1>Appointments & Queue</h1>
+
+        <p>
+            Manage today's appointments and patient queue.
+        </p>
+
+    </div>
+
+
+    <div
+        class="success"
+        id="success">
+    </div>
+
+
+    <div class="grid">
+
+
+        <!-- BOOK APPOINTMENT -->
+
+        <section class="card">
+
+            <h2>
+                📅 Book Appointment
+            </h2>
+
+
+            <label>
+                SEARCH PATIENT
+            </label>
+
+            <div class="search">
+
+                <input
+                    type="text"
+                    id="patientSearch"
+                    placeholder="Patient ID / name / mobile">
+
+                <button onclick="findPatient()">
+                    Find
+                </button>
+
+            </div>
+
+
+            <div
+                class="patient-result"
+                id="patientResult">
+            </div>
+
+
+            <label>
+                DOCTOR
+            </label>
+
+            <select id="doctor">
+
+                <option value="">
+                    Select doctor
+                </option>
+
+                <option value="Doctor Fegde — BAMS">
+                    Doctor Fegde — BAMS
+                </option>
+
+            </select>
+
+
+            <label>
+                DATE
+            </label>
+
+            <input
+                type="date"
+                id="appointmentDate">
+
+
+            <label>
+                TIME
+            </label>
+
+            <input
+                type="time"
+                id="appointmentTime">
+
+
+            <button
+                class="book"
+                onclick="bookAppointment()">
+
+                📅 Book Appointment
+
+            </button>
+
+        </section>
+
+
+        <!-- TODAY'S QUEUE -->
+
+        <section class="card">
+
+            <h2>
+                🏥 Today's Queue
+            </h2>
+
+
+            <div
+                id="queue">
+            </div>
+
+        </section>
+
+    </div>
+
+
+    <!-- ALL APPOINTMENTS -->
+
+    <section class="card">
+
+        <h2>
+            📋 Appointment History
+        </h2>
+
+
+        <div id="history">
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   DATA
+===================================================== */
+
+let patients =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncPatients"
+        )
+    ) || [];
+
+
+let appointments =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncAppointments"
+        )
+    ) || [];
+
+
+let selectedPatient = null;
+
+
+/* =====================================================
+   DEFAULT DATE
+===================================================== */
+
+document
+    .getElementById("appointmentDate")
+    .value =
+    new Date()
+        .toISOString()
+        .split("T")[0];
+
+
+/* =====================================================
+   FIND PATIENT
+===================================================== */
+
+function findPatient(){
+
+    patients =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncPatients"
+            )
+        ) || [];
+
+
+    const query =
+        document
+            .getElementById(
+                "patientSearch"
+            )
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    const result =
+        document
+            .getElementById(
+                "patientResult"
+            );
+
+
+    if(!query){
+
+        result.style.display = "none";
+
+        selectedPatient = null;
+
+        return;
+    }
+
+
+    const patient =
+        patients.find(p =>
+
+            String(p.id || "")
+                .toLowerCase()
+                .includes(query)
+
+            ||
+
+            String(p.name || "")
+                .toLowerCase()
+                .includes(query)
+
+            ||
+
+            String(p.mobile || "")
+                .toLowerCase()
+                .includes(query)
+
+        );
+
+
+    if(!patient){
+
+        result.innerHTML =
+            "❌ Patient not found.";
+
+        result.style.display = "block";
+
+        selectedPatient = null;
+
+        return;
+    }
+
+
+    selectedPatient = patient;
+
+
+    result.innerHTML = `
+
+        <strong>
+            ${escapeHTML(patient.name)}
+        </strong>
+
+        <br>
+
+        Patient ID:
+        ${escapeHTML(patient.id)}
+
+        <br>
+
+        Mobile:
+        ${escapeHTML(patient.mobile || "—")}
+
+    `;
+
+
+    result.style.display = "block";
+
+}
+
+
+/* =====================================================
+   BOOK APPOINTMENT
+===================================================== */
+
+function bookAppointment(){
+
+    if(!selectedPatient){
+
+        alert(
+            "Please search and select a patient first."
+        );
+
+        return;
+    }
+
+
+    const doctor =
+        document
+            .getElementById("doctor")
+            .value;
+
+
+    const date =
+        document
+            .getElementById("appointmentDate")
+            .value;
+
+
+    const time =
+        document
+            .getElementById("appointmentTime")
+            .value;
+
+
+    if(!doctor){
+
+        alert(
+            "Please select a doctor."
+        );
+
+        return;
+    }
+
+
+    if(!date){
+
+        alert(
+            "Please select an appointment date."
+        );
+
+        return;
+    }
+
+
+    if(!time){
+
+        alert(
+            "Please select an appointment time."
+        );
+
+        return;
+    }
+
+
+    /* TOKEN NUMBER */
+
+    const sameDay =
+        appointments.filter(
+            a => a.date === date
+        );
+
+
+    const token =
+        sameDay.length + 1;
+
+
+    const appointment = {
+
+        id:
+            "APT-" +
+            Date.now(),
+
+        patientID:
+            selectedPatient.id,
+
+        patientName:
+            selectedPatient.name,
+
+        doctor:
+            doctor,
+
+        date:
+            date,
+
+        time:
+            time,
+
+        token:
+            token,
+
+        status:
+            "Waiting",
+
+        createdAt:
+            new Date().toISOString()
+
+    };
+
+
+    appointments.push(
+        appointment
+    );
+
+
+    localStorage.setItem(
+        "careSyncAppointments",
+        JSON.stringify(
+            appointments
+        )
+    );
+
+
+    const success =
+        document
+            .getElementById(
+                "success"
+            );
+
+
+    success.innerHTML = `
+
+        ✅ Appointment booked successfully!
+
+        <br>
+
+        Patient:
+        <strong>
+            ${escapeHTML(selectedPatient.name)}
+        </strong>
+
+        &nbsp; | &nbsp;
+
+        Token:
+        <strong>
+            #${token}
+        </strong>
+
+    `;
+
+
+    success.style.display = "block";
+
+
+    document
+        .getElementById(
+            "patientSearch"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "patientResult"
+        )
+        .style.display = "none";
+
+
+    document
+        .getElementById(
+            "doctor"
+        )
+        .value = "";
+
+
+    document
+        .getElementById(
+            "appointmentTime"
+        )
+        .value = "";
+
+
+    selectedPatient = null;
+
+
+    displayAppointments();
+
+}
+
+
+/* =====================================================
+   DISPLAY APPOINTMENTS
+===================================================== */
+
+function displayAppointments(){
+
+    appointments =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncAppointments"
+            )
+        ) || [];
+
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    const todayAppointments =
+        appointments
+            .filter(
+                a => a.date === today
+            )
+            .sort(
+                (a,b) =>
+                    a.token - b.token
+            );
+
+
+    const queue =
+        document
+            .getElementById(
+                "queue"
+            );
+
+
+    if(
+        todayAppointments.length === 0
+    ){
+
+        queue.innerHTML = `
+
+            <div class="empty">
+
+                No appointments for today.
+
+            </div>
+
+        `;
+
+    }else{
+
+        queue.innerHTML =
+            todayAppointments
+                .map(
+                    createAppointmentHTML
+                )
+                .join("");
+
+    }
+
+
+    const history =
+        document
+            .getElementById(
+                "history"
+            );
+
+
+    if(appointments.length === 0){
+
+        history.innerHTML = `
+
+            <div class="empty">
+
+                No appointment history yet.
+
+            </div>
+
+        `;
+
+    }else{
+
+        history.innerHTML =
+            appointments
+                .slice()
+                .reverse()
+                .map(
+                    createAppointmentHTML
+                )
+                .join("");
+
+    }
+
+}
+
+
+/* =====================================================
+   APPOINTMENT HTML
+===================================================== */
+
+function createAppointmentHTML(a){
+
+    let statusClass = "";
+
+
+    if(
+        a.status === "Completed"
+    ){
+
+        statusClass =
+            "completed";
+
+    }
+
+
+    if(
+        a.status === "In Consultation"
+    ){
+
+        statusClass =
+            "consultation";
+
+    }
+
+
+    return `
+
+        <div class="appointment">
+
+            <div class="appointment-top">
+
+                <div class="token">
+
+                    TOKEN #${a.token}
+
+                </div>
+
+                <div class="status ${statusClass}">
+
+                    ${a.status}
+
+                </div>
+
+            </div>
+
+
+            <div class="patient-name">
+
+                ${escapeHTML(
+                    a.patientName
+                )}
+
+            </div>
+
+
+            <div class="info">
+
+                🪪 Patient ID:
+                ${escapeHTML(
+                    a.patientID
+                )}
+
+                <br>
+
+                👨‍⚕️ Doctor:
+                ${escapeHTML(
+                    a.doctor
+                )}
+
+                <br>
+
+                📅 Date:
+                ${escapeHTML(
+                    a.date
+                )}
+
+                <br>
+
+                🕐 Time:
+                ${escapeHTML(
+                    a.time
+                )}
+
+            </div>
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text){
+
+    return String(text)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   BACK
+===================================================== */
+
+function goBack(){
+
+    window.location.href =
+        "reception.html";
+
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+displayAppointments();
+
+</script>
+
+</body>
+
+</html>

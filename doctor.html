@@ -1,0 +1,928 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/doctor.css">
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Doctor Dashboard | Aditya Hospital</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4fbfd;
+    color: #173f55;
+}
+
+/* HEADER */
+
+.header {
+    background: white;
+    border-bottom: 1px solid #e1edf2;
+    padding: 14px 6%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.brand {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.brand img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.brand h2 {
+    font-size: 18px;
+    color: #103f58;
+}
+
+.brand p {
+    font-size: 8px;
+    color: #168aad;
+    font-weight: bold;
+    margin-top: 3px;
+}
+
+.doctor-info {
+    text-align: right;
+}
+
+.doctor-info strong {
+    display: block;
+    color: #194b63;
+    font-size: 13px;
+}
+
+.doctor-info small {
+    color: #78909c;
+    font-size: 10px;
+}
+
+/* MAIN */
+
+.container {
+    max-width: 1150px;
+    margin: 30px auto;
+    padding: 0 20px;
+}
+
+.title {
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    color: #123f57;
+}
+
+.title p {
+    color: #78909c;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+    margin-bottom: 22px;
+}
+
+.stat {
+    background: white;
+    border: 1px solid #e1edf2;
+    border-radius: 14px;
+    padding: 20px;
+}
+
+.stat-icon {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.stat h3 {
+    color: #123f57;
+    font-size: 24px;
+}
+
+.stat p {
+    color: #78909c;
+    font-size: 10px;
+    margin-top: 4px;
+}
+
+/* CARD */
+
+.card {
+    background: white;
+    border: 1px solid #e1edf2;
+    border-radius: 15px;
+    padding: 24px;
+    margin-bottom: 22px;
+}
+
+.card-title {
+    color: #194b63;
+    font-size: 17px;
+    margin-bottom: 18px;
+}
+
+/* QUEUE */
+
+.queue-item {
+    border: 1px solid #dfedf2;
+    border-radius: 12px;
+    padding: 17px;
+    margin-bottom: 12px;
+    background: #fbfdfe;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 15px;
+}
+
+.queue-left {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.token {
+    width: 52px;
+    height: 52px;
+    border-radius: 12px;
+    background: #e4f7fb;
+    color: #126782;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: bold;
+    font-size: 12px;
+}
+
+.patient-name {
+    color: #194b63;
+    font-size: 14px;
+    font-weight: bold;
+    margin-bottom: 5px;
+}
+
+.patient-details {
+    color: #78909c;
+    font-size: 10px;
+    line-height: 1.7;
+}
+
+/* BUTTONS */
+
+.buttons {
+    display: flex;
+    gap: 8px;
+    flex-wrap: wrap;
+}
+
+.start-btn,
+.complete-btn,
+.view-btn {
+    border: none;
+    border-radius: 8px;
+    padding: 10px 13px;
+    cursor: pointer;
+    font-size: 10px;
+    font-weight: bold;
+}
+
+.start-btn {
+    background: #168aad;
+    color: white;
+}
+
+.start-btn:hover {
+    background: #105f7b;
+}
+
+.complete-btn {
+    background: #eaf7ef;
+    color: #26734a;
+}
+
+.complete-btn:hover {
+    background: #d8f0e2;
+}
+
+.view-btn {
+    background: #e8f5f8;
+    color: #126782;
+}
+
+.view-btn:hover {
+    background: #d5eef4;
+}
+
+/* STATUS */
+
+.status {
+    display: inline-block;
+    padding: 6px 9px;
+    border-radius: 6px;
+    font-size: 9px;
+    font-weight: bold;
+    margin-top: 7px;
+}
+
+.waiting {
+    background: #fff5d9;
+    color: #916d16;
+}
+
+.consultation {
+    background: #e8f1ff;
+    color: #285b91;
+}
+
+.completed {
+    background: #edf9f2;
+    color: #25734a;
+}
+
+/* EMPTY */
+
+.empty {
+    text-align: center;
+    padding: 30px;
+    color: #90a4ae;
+    font-size: 12px;
+}
+
+/* MOBILE */
+
+@media(max-width: 750px) {
+
+    .header {
+        padding: 12px 15px;
+    }
+
+    .brand h2 {
+        font-size: 15px;
+    }
+
+    .brand p {
+        display: none;
+    }
+
+    .brand img {
+        width: 40px;
+        height: 40px;
+    }
+
+    .doctor-info {
+        display: none;
+    }
+
+    .container {
+        margin-top: 20px;
+        padding: 0 14px;
+    }
+
+    .title h1 {
+        font-size: 24px;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .queue-item {
+        align-items: flex-start;
+        flex-direction: column;
+    }
+
+    .queue-left {
+        width: 100%;
+    }
+
+    .buttons {
+        width: 100%;
+    }
+
+    .buttons button {
+        flex: 1;
+    }
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- HEADER -->
+
+<header class="header">
+
+    <div class="brand">
+
+        <img
+            src="logo.webp"
+            alt="Aditya Hospital"
+        >
+
+        <div>
+
+            <h2>
+                Aditya Hospital
+            </h2>
+
+            <p>
+                WE TREAT. WE CARE. WE CURE.
+            </p>
+
+        </div>
+
+    </div>
+
+
+    <div class="doctor-info">
+
+        <strong>
+            Doctor Fegde
+        </strong>
+
+        <small>
+            BAMS • Doctor Dashboard
+        </small>
+
+    </div>
+
+</header>
+
+
+<!-- MAIN -->
+
+<main class="container">
+
+
+    <div class="title">
+
+        <h1>
+            Doctor Dashboard 🩺
+        </h1>
+
+        <p>
+            Manage today's patient queue and consultations.
+        </p>
+
+    </div>
+
+
+    <!-- STATISTICS -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <h3 id="totalToday">
+                0
+            </h3>
+
+            <p>
+                Today's Patients
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ⏳
+            </div>
+
+            <h3 id="waitingCount">
+                0
+            </h3>
+
+            <p>
+                Waiting
+            </p>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                ✅
+            </div>
+
+            <h3 id="completedCount">
+                0
+            </h3>
+
+            <p>
+                Completed
+            </p>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- TODAY'S QUEUE -->
+
+    <section class="card">
+
+        <h2 class="card-title">
+            📋 Today's Patient Queue
+        </h2>
+
+
+        <div id="queue">
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+/* =====================================================
+   LOAD APPOINTMENTS
+===================================================== */
+
+let appointments =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncAppointments"
+        )
+    ) || [];
+
+
+/* =====================================================
+   DISPLAY QUEUE
+===================================================== */
+
+function displayQueue() {
+
+
+    appointments =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncAppointments"
+            )
+        ) || [];
+
+
+    const today =
+        new Date()
+            .toISOString()
+            .split("T")[0];
+
+
+    const todayAppointments =
+        appointments
+            .filter(
+                appointment =>
+                    appointment.date === today
+            )
+            .sort(
+                (a, b) =>
+                    a.token - b.token
+            );
+
+
+    const waiting =
+        todayAppointments.filter(
+            appointment =>
+                appointment.status === "Waiting"
+        ).length;
+
+
+    const completed =
+        todayAppointments.filter(
+            appointment =>
+                appointment.status === "Completed"
+        ).length;
+
+
+    document
+        .getElementById("totalToday")
+        .textContent =
+        todayAppointments.length;
+
+
+    document
+        .getElementById("waitingCount")
+        .textContent =
+        waiting;
+
+
+    document
+        .getElementById("completedCount")
+        .textContent =
+        completed;
+
+
+    const queue =
+        document
+            .getElementById("queue");
+
+
+    if (
+        todayAppointments.length === 0
+    ) {
+
+        queue.innerHTML = `
+
+            <div class="empty">
+
+                🩺 No patients are scheduled
+                for today.
+
+            </div>
+
+        `;
+
+        return;
+
+    }
+
+
+    queue.innerHTML =
+        todayAppointments
+            .map(
+                createQueueItem
+            )
+            .join("");
+
+}
+
+
+/* =====================================================
+   CREATE QUEUE ITEM
+===================================================== */
+
+function createQueueItem(appointment) {
+
+
+    let statusClass =
+        "waiting";
+
+
+    if (
+        appointment.status ===
+        "In Consultation"
+    ) {
+
+        statusClass =
+            "consultation";
+
+    }
+
+
+    if (
+        appointment.status ===
+        "Completed"
+    ) {
+
+        statusClass =
+            "completed";
+
+    }
+
+
+    let actionButtons = "";
+
+
+    if (
+        appointment.status ===
+        "Waiting"
+    ) {
+
+        actionButtons = `
+
+            <button
+                class="start-btn"
+                onclick="startConsultation('${appointment.id}')">
+
+                ▶ Start Consultation
+
+            </button>
+
+        `;
+
+    }
+
+
+    if (
+        appointment.status ===
+        "In Consultation"
+    ) {
+
+        actionButtons = `
+
+            <button
+                class="complete-btn"
+                onclick="completeConsultation('${appointment.id}')">
+
+                ✓ Complete
+
+            </button>
+
+        `;
+
+    }
+
+
+    return `
+
+        <div class="queue-item">
+
+
+            <div class="queue-left">
+
+
+                <div class="token">
+
+                    #${appointment.token}
+
+                </div>
+
+
+                <div>
+
+                    <div class="patient-name">
+
+                        ${escapeHTML(
+                            appointment.patientName
+                        )}
+
+                    </div>
+
+
+                    <div class="patient-details">
+
+                        Patient ID:
+                        ${escapeHTML(
+                            appointment.patientID
+                        )}
+
+                        <br>
+
+                        🕐
+                        ${escapeHTML(
+                            appointment.time
+                        )}
+
+                    </div>
+
+
+                    <span
+                        class="status ${statusClass}">
+
+                        ${escapeHTML(
+                            appointment.status
+                        )}
+
+                    </span>
+
+                </div>
+
+
+            </div>
+
+
+            <div class="buttons">
+
+
+                <button
+                    class="view-btn"
+                    onclick="viewPatient('${encodeURIComponent(appointment.patientID)}')">
+
+                    👁 View Patient
+
+                </button>
+
+
+                ${actionButtons}
+
+
+            </div>
+
+
+        </div>
+
+    `;
+
+}
+
+
+/* =====================================================
+   START CONSULTATION
+===================================================== */
+
+function startConsultation(id) {
+
+
+    appointments =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncAppointments"
+            )
+        ) || [];
+
+
+    const appointment =
+        appointments.find(
+            a => a.id === id
+        );
+
+
+    if (!appointment) {
+
+        return;
+
+    }
+
+
+    appointment.status =
+        "In Consultation";
+
+
+    localStorage.setItem(
+        "careSyncAppointments",
+        JSON.stringify(
+            appointments
+        )
+    );
+
+
+    displayQueue();
+
+
+    alert(
+        "Consultation started for " +
+        appointment.patientName
+    );
+
+}
+
+
+/* =====================================================
+   COMPLETE CONSULTATION
+===================================================== */
+
+function completeConsultation(id) {
+
+
+    appointments =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncAppointments"
+            )
+        ) || [];
+
+
+    const appointment =
+        appointments.find(
+            a => a.id === id
+        );
+
+
+    if (!appointment) {
+
+        return;
+
+    }
+
+
+    appointment.status =
+        "Completed";
+
+
+    localStorage.setItem(
+        "careSyncAppointments",
+        JSON.stringify(
+            appointments
+        )
+    );
+
+
+    displayQueue();
+
+
+    alert(
+        "Consultation completed."
+    );
+
+}
+
+
+/* =====================================================
+   VIEW PATIENT
+===================================================== */
+
+function viewPatient(id) {
+
+    const patientID =
+        decodeURIComponent(id);
+
+
+    window.location.href =
+        "patient.html?patient=" +
+        encodeURIComponent(
+            patientID
+        );
+
+}
+
+
+/* =====================================================
+   ESCAPE HTML
+===================================================== */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
+
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
+
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
+
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
+
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
+
+}
+
+
+/* =====================================================
+   INITIAL LOAD
+===================================================== */
+
+displayQueue();
+
+
+/*
+   Refresh automatically every 3 seconds.
+   This lets the doctor see new appointments
+   created by reception.
+*/
+
+setInterval(
+    displayQueue,
+    3000
+);
+
+</script>
+
+
+</body>
+
+</html>

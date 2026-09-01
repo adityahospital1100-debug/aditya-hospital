@@ -1,0 +1,1789 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/reception.css">
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Reception Dashboard | Aditya Hospital</title>
+
+<style>
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+body {
+    background: #f4fbfd;
+    color: #173f55;
+}
+
+/* SIDEBAR */
+
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+
+    width: 240px;
+    height: 100vh;
+
+    background: #103f58;
+    color: white;
+
+    padding: 25px 18px;
+
+    display: flex;
+    flex-direction: column;
+
+    z-index: 1000;
+}
+
+.logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+
+    padding: 5px 10px 30px;
+}
+
+.logo img {
+    width: 48px;
+    height: 48px;
+    object-fit: contain;
+}
+
+.logo h2 {
+    font-size: 18px;
+}
+
+.logo p {
+    font-size: 8px;
+    color: #7bd5ef;
+    margin-top: 4px;
+    font-weight: bold;
+}
+
+.menu {
+    display: flex;
+    flex-direction: column;
+    gap: 7px;
+}
+
+.menu button {
+    width: 100%;
+
+    border: none;
+    background: transparent;
+
+    color: #c8e1e9;
+
+    padding: 13px;
+
+    text-align: left;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-size: 13px;
+}
+
+.menu button:hover,
+.menu button.active {
+    background: #168aad;
+    color: white;
+}
+
+.sidebar-bottom {
+    margin-top: auto;
+}
+
+.logout {
+    width: 100%;
+
+    border: 1px solid rgba(255,255,255,0.15);
+
+    background: transparent;
+
+    color: #c8e1e9;
+
+    padding: 12px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+}
+
+.logout:hover {
+    background: #c0392b;
+    color: white;
+}
+
+/* MAIN */
+
+.main {
+    margin-left: 240px;
+    min-height: 100vh;
+
+    padding: 28px 35px;
+}
+
+/* TOPBAR */
+
+.topbar {
+    display: flex;
+
+    justify-content: space-between;
+    align-items: center;
+
+    margin-bottom: 30px;
+}
+
+.welcome h1 {
+    font-size: 27px;
+    color: #123f57;
+}
+
+.welcome p {
+    color: #78909c;
+
+    font-size: 12px;
+
+    margin-top: 6px;
+}
+
+.staff-profile {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.staff-avatar {
+    width: 42px;
+    height: 42px;
+
+    border-radius: 50%;
+
+    background: #dff5fa;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 19px;
+}
+
+.staff-profile strong {
+    font-size: 13px;
+    color: #244f63;
+}
+
+.staff-profile small {
+    display: block;
+
+    font-size: 10px;
+
+    color: #78909c;
+
+    margin-top: 3px;
+}
+
+/* STATS */
+
+.stats {
+    display: grid;
+
+    grid-template-columns:
+        repeat(3, 1fr);
+
+    gap: 18px;
+
+    margin-bottom: 28px;
+}
+
+.stat {
+    background: white;
+
+    border: 1px solid #e2eef3;
+
+    border-radius: 15px;
+
+    padding: 21px;
+
+    display: flex;
+    align-items: center;
+
+    gap: 15px;
+}
+
+.stat-icon {
+    width: 48px;
+    height: 48px;
+
+    border-radius: 12px;
+
+    background: #e4f7fb;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    font-size: 21px;
+}
+
+.stat h3 {
+    font-size: 24px;
+    color: #123f57;
+}
+
+.stat p {
+    color: #78909c;
+
+    font-size: 10px;
+
+    margin-top: 3px;
+}
+
+/* CARD */
+
+.card {
+    background: white;
+
+    border: 1px solid #e2eef3;
+
+    border-radius: 15px;
+
+    padding: 24px;
+
+    margin-bottom: 22px;
+}
+
+.section-title {
+    color: #194b63;
+
+    font-size: 16px;
+
+    margin-bottom: 18px;
+}
+
+/* REGISTRATION */
+
+.form-grid {
+    display: grid;
+
+    grid-template-columns:
+        repeat(2, 1fr);
+
+    gap: 15px;
+}
+
+.form-group {
+    margin-bottom: 2px;
+}
+
+.form-group.full {
+    grid-column: 1 / -1;
+}
+
+.form-group label {
+    display: block;
+
+    color: #426579;
+
+    font-size: 10px;
+
+    font-weight: bold;
+
+    margin-bottom: 7px;
+}
+
+.form-group input,
+.form-group select {
+    width: 100%;
+
+    padding: 12px 13px;
+
+    border: 1px solid #d6e7ed;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 12px;
+
+    color: #244f63;
+
+    background: white;
+}
+
+.form-group input:focus,
+.form-group select:focus {
+    border-color: #168aad;
+}
+
+.register-btn {
+    margin-top: 18px;
+
+    border: none;
+
+    background: #168aad;
+
+    color: white;
+
+    padding: 13px 22px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+
+    font-size: 12px;
+}
+
+.register-btn:hover {
+    background: #105f7b;
+}
+
+/* SEARCH */
+
+.search-box {
+    display: flex;
+    gap: 10px;
+
+    margin-bottom: 18px;
+}
+
+.search-box input {
+    flex: 1;
+
+    padding: 13px;
+
+    border: 1px solid #d6e7ed;
+
+    border-radius: 9px;
+
+    outline: none;
+
+    font-size: 12px;
+}
+
+.search-box button {
+    border: none;
+
+    background: #168aad;
+
+    color: white;
+
+    padding: 0 20px;
+
+    border-radius: 9px;
+
+    cursor: pointer;
+
+    font-weight: bold;
+}
+
+.search-box button:hover {
+    background: #105f7b;
+}
+
+/* TABLE */
+
+.table-wrapper {
+    overflow-x: auto;
+}
+
+table {
+    width: 100%;
+
+    border-collapse: collapse;
+
+    min-width: 650px;
+}
+
+th {
+    background: #f2fafc;
+
+    color: #527384;
+
+    font-size: 10px;
+
+    text-align: left;
+
+    padding: 12px;
+}
+
+td {
+    padding: 13px 12px;
+
+    border-top: 1px solid #edf3f5;
+
+    font-size: 11px;
+
+    color: #426579;
+}
+
+.patient-id {
+    color: #168aad;
+
+    font-weight: bold;
+}
+
+.view-btn {
+    border: none;
+
+    background: #e4f7fb;
+
+    color: #126782;
+
+    padding: 7px 11px;
+
+    border-radius: 7px;
+
+    cursor: pointer;
+
+    font-size: 10px;
+
+    font-weight: bold;
+}
+
+.view-btn:hover {
+    background: #cceef6;
+}
+
+/* SUCCESS MESSAGE */
+
+.success {
+    display: none;
+
+    background: #edf9f2;
+
+    color: #25734a;
+
+    border: 1px solid #ccebd9;
+
+    padding: 13px;
+
+    border-radius: 9px;
+
+    font-size: 11px;
+
+    margin-bottom: 18px;
+}
+
+/* MOBILE */
+
+.mobile-header {
+    display: none;
+}
+
+.mobile-menu {
+    display: none;
+
+    position: fixed;
+
+    left: 0;
+    top: 0;
+
+    width: 250px;
+    height: 100vh;
+
+    background: #103f58;
+
+    z-index: 2000;
+
+    padding: 25px 18px;
+}
+
+.mobile-menu.show {
+    display: block;
+}
+
+.mobile-menu button {
+    width: 100%;
+
+    background: transparent;
+
+    border: none;
+
+    color: white;
+
+    padding: 14px;
+
+    text-align: left;
+
+    border-radius: 8px;
+
+    cursor: pointer;
+
+    margin-bottom: 5px;
+}
+
+.mobile-menu button:hover {
+    background: #168aad;
+}
+
+.close-menu {
+    color: white;
+
+    text-align: right;
+
+    font-size: 24px;
+
+    margin-bottom: 20px;
+
+    cursor: pointer;
+}
+
+/* RESPONSIVE */
+
+@media(max-width: 850px) {
+
+    .sidebar {
+        width: 210px;
+    }
+
+    .main {
+        margin-left: 210px;
+        padding: 24px;
+    }
+
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .form-group.full {
+        grid-column: auto;
+    }
+
+}
+
+@media(max-width: 700px) {
+
+    .sidebar {
+        display: none;
+    }
+
+    .main {
+        margin-left: 0;
+        padding: 18px;
+    }
+
+    .mobile-header {
+        display: flex;
+
+        align-items: center;
+
+        justify-content: space-between;
+
+        background: white;
+
+        padding: 11px 14px;
+
+        border-radius: 12px;
+
+        margin-bottom: 20px;
+
+        border: 1px solid #e2eef3;
+    }
+
+    .mobile-brand {
+        display: flex;
+
+        align-items: center;
+
+        gap: 8px;
+    }
+
+    .mobile-brand img {
+        width: 38px;
+        height: 38px;
+
+        object-fit: contain;
+    }
+
+    .mobile-brand strong {
+        font-size: 14px;
+        color: #123f57;
+    }
+
+    .menu-mobile {
+        border: none;
+
+        background: #e4f7fb;
+
+        color: #126782;
+
+        padding: 8px 11px;
+
+        border-radius: 8px;
+
+        cursor: pointer;
+
+        font-size: 18px;
+    }
+
+    .topbar {
+        margin-bottom: 20px;
+    }
+
+    .staff-profile {
+        display: none;
+    }
+
+    .stats {
+        grid-template-columns: 1fr;
+    }
+
+    .search-box {
+        flex-direction: column;
+    }
+
+    .search-box button {
+        padding: 13px;
+    }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+
+<!-- SIDEBAR -->
+
+<aside class="sidebar">
+
+    <div class="logo">
+
+        <img src="logo.webp" alt="Aditya Hospital">
+
+        <div>
+
+            <h2>Aditya Hospital</h2>
+
+            <p>WE TREAT. WE CARE. WE CURE.</p>
+
+        </div>
+
+    </div>
+
+
+    <div class="menu">
+
+        <button
+            class="active"
+            onclick="scrollToRegistration()">
+
+            ➕ Register Patient
+
+        </button>
+
+        <button onclick="scrollToSearch()">
+
+            🔎 Search Patient
+
+        </button>
+
+        <button onclick="scrollToPatients()">
+
+            📋 Patient Records
+
+        </button>
+
+    </div>
+
+
+    <div class="sidebar-bottom">
+
+        <button
+            class="logout"
+            onclick="logout()">
+
+            ⇥ Logout
+
+        </button>
+
+    </div>
+
+</aside>
+
+
+<!-- MOBILE HEADER -->
+
+<div class="mobile-header">
+
+    <div class="mobile-brand">
+
+        <img
+            src="logo.webp"
+            alt="Aditya Hospital">
+
+        <strong>
+            Aditya Hospital
+        </strong>
+
+    </div>
+
+
+    <button
+        class="menu-mobile"
+        onclick="openMobileMenu()">
+
+        ☰
+
+    </button>
+
+</div>
+
+
+<!-- MOBILE MENU -->
+
+<div
+    class="mobile-menu"
+    id="mobileMenu">
+
+    <div
+        class="close-menu"
+        onclick="closeMobileMenu()">
+
+        ×
+
+    </div>
+
+
+    <button
+        onclick="scrollToRegistration(); closeMobileMenu();">
+
+        ➕ Register Patient
+
+    </button>
+
+
+    <button
+        onclick="scrollToSearch(); closeMobileMenu();">
+
+        🔎 Search Patient
+
+    </button>
+
+
+    <button
+        onclick="scrollToPatients(); closeMobileMenu();">
+
+        📋 Patient Records
+
+    </button>
+
+
+    <button onclick="logout()">
+
+        ⇥ Logout
+
+    </button>
+
+</div>
+
+
+<!-- MAIN -->
+
+<main class="main">
+
+
+    <!-- TOPBAR -->
+
+    <div class="topbar">
+
+        <div class="welcome">
+
+            <h1>
+                Good morning 👋
+            </h1>
+
+            <p>
+                Welcome to the Aditya Hospital
+                reception dashboard.
+            </p>
+
+        </div>
+
+
+        <div class="staff-profile">
+
+            <div class="staff-avatar">
+                👩‍💼
+            </div>
+
+            <div>
+
+                <strong>
+                    Reception
+                </strong>
+
+                <small>
+                    Front Desk
+                </small>
+
+            </div>
+
+        </div>
+
+    </div>
+
+
+    <!-- STATS -->
+
+    <section class="stats">
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                👥
+            </div>
+
+            <div>
+
+                <h3 id="totalPatients">
+                    0
+                </h3>
+
+                <p>
+                    Total Patients
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                📅
+            </div>
+
+            <div>
+
+                <h3 id="todayPatients">
+                    0
+                </h3>
+
+                <p>
+                    Registered Today
+                </p>
+
+            </div>
+
+        </div>
+
+
+        <div class="stat">
+
+            <div class="stat-icon">
+                🆕
+            </div>
+
+            <div>
+
+                <h3 id="nextID">
+                    ADH
+                </h3>
+
+                <p>
+                    Next Patient ID
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </section>
+
+
+    <!-- SUCCESS -->
+
+    <div
+        class="success"
+        id="success">
+
+    </div>
+
+
+    <!-- REGISTRATION -->
+
+    <section
+        class="card"
+        id="registration">
+
+        <h2 class="section-title">
+            ➕ Register New Patient
+        </h2>
+
+
+        <form
+            id="registrationForm">
+
+
+            <div class="form-grid">
+
+
+                <div class="form-group">
+
+                    <label>
+                        PATIENT NAME *
+                    </label>
+
+                    <input
+                        type="text"
+                        id="name"
+                        required
+                        placeholder="Enter full name">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        AGE *
+                    </label>
+
+                    <input
+                        type="number"
+                        id="age"
+                        min="0"
+                        max="120"
+                        required
+                        placeholder="Age">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        GENDER *
+                    </label>
+
+                    <select
+                        id="gender"
+                        required>
+
+                        <option value="">
+                            Select gender
+                        </option>
+
+                        <option value="Male">
+                            Male
+                        </option>
+
+                        <option value="Female">
+                            Female
+                        </option>
+
+                        <option value="Other">
+                            Other
+                        </option>
+
+                    </select>
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        HEIGHT (CM)
+                    </label>
+
+                    <input
+                        type="number"
+                        id="height"
+                        placeholder="Height in cm">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        VILLAGE
+                    </label>
+
+                    <input
+                        type="text"
+                        id="village"
+                        placeholder="Village">
+
+                </div>
+
+
+                <div class="form-group">
+
+                    <label>
+                        MOBILE NUMBER *
+                    </label>
+
+                    <input
+                        type="tel"
+                        id="mobile"
+                        required
+                        placeholder="Mobile number">
+
+                </div>
+
+
+                <div class="form-group full">
+
+                    <label>
+                        ADDRESS
+                    </label>
+
+                    <input
+                        type="text"
+                        id="address"
+                        placeholder="Full address">
+
+                </div>
+
+
+            </div>
+
+
+            <button
+                type="submit"
+                class="register-btn">
+
+                💾 Register Patient
+
+            </button>
+
+
+        </form>
+
+    </section>
+
+
+    <!-- SEARCH -->
+
+    <section
+        class="card"
+        id="search">
+
+        <h2 class="section-title">
+            🔎 Search Patient
+        </h2>
+
+
+        <div class="search-box">
+
+            <input
+                type="text"
+                id="searchInput"
+                placeholder="Search by Patient ID, name or mobile number...">
+
+            <button onclick="searchPatients()">
+                Search
+            </button>
+
+        </div>
+
+
+        <div
+            class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            PATIENT ID
+                        </th>
+
+                        <th>
+                            NAME
+                        </th>
+
+                        <th>
+                            AGE
+                        </th>
+
+                        <th>
+                            GENDER
+                        </th>
+
+                        <th>
+                            MOBILE
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="searchResults">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+    <!-- TODAY'S PATIENTS -->
+
+    <section
+        class="card"
+        id="patients">
+
+        <h2 class="section-title">
+            📋 Today's Patients
+        </h2>
+
+
+        <div class="table-wrapper">
+
+            <table>
+
+                <thead>
+
+                    <tr>
+
+                        <th>
+                            PATIENT ID
+                        </th>
+
+                        <th>
+                            NAME
+                        </th>
+
+                        <th>
+                            AGE
+                        </th>
+
+                        <th>
+                            GENDER
+                        </th>
+
+                        <th>
+                            MOBILE
+                        </th>
+
+                        <th>
+                            ACTION
+                        </th>
+
+                    </tr>
+
+                </thead>
+
+
+                <tbody
+                    id="todayPatientsList">
+
+                </tbody>
+
+            </table>
+
+        </div>
+
+    </section>
+
+
+</main>
+
+
+<script>
+
+
+/* ================= LOGIN ================= */
+
+const role =
+    sessionStorage.getItem(
+        "careSyncRole"
+    );
+
+
+if (
+    role !== "reception" &&
+    role !== "admin"
+) {
+
+    window.location.href =
+        "login.html";
+
+}
+
+
+/* ================= DATA ================= */
+
+let patients =
+    JSON.parse(
+        localStorage.getItem(
+            "careSyncPatients"
+        )
+    ) || [];
+
+
+/* ================= PATIENT ID ================= */
+
+function generatePatientID() {
+
+    const year =
+        new Date().getFullYear();
+
+
+    let highest = 0;
+
+
+    patients.forEach(patient => {
+
+        const match =
+            String(patient.id || "")
+                .match(
+                    /ADH-\d{4}-(\d+)/
+                );
+
+
+        if (match) {
+
+            const number =
+                parseInt(match[1]);
+
+            if (number > highest) {
+
+                highest = number;
+
+            }
+
+        }
+
+    });
+
+
+    const next =
+        highest + 1;
+
+
+    return (
+        "ADH-" +
+        year +
+        "-" +
+        String(next).padStart(5, "0")
+    );
+
+}
+
+
+/* ================= UPDATE STATS ================= */
+
+function updateStats() {
+
+
+    document
+        .getElementById("totalPatients")
+        .textContent =
+        patients.length;
+
+
+    const today =
+        new Date()
+            .toLocaleDateString();
+
+
+    const todayPatients =
+        patients.filter(patient => {
+
+            if (!patient.date) {
+
+                return false;
+
+            }
+
+            return new Date(
+                patient.date
+            ).toLocaleDateString()
+                === today;
+
+        });
+
+
+    document
+        .getElementById("todayPatients")
+        .textContent =
+        todayPatients.length;
+
+
+    document
+        .getElementById("nextID")
+        .textContent =
+        generatePatientID()
+            .replace(
+                new Date().getFullYear() + "-",
+                ""
+            );
+
+}
+
+
+updateStats();
+
+
+/* ================= REGISTER ================= */
+
+document
+    .getElementById("registrationForm")
+    .addEventListener(
+        "submit",
+        function(event) {
+
+            event.preventDefault();
+
+
+            const patient = {
+
+                id:
+                    generatePatientID(),
+
+                name:
+                    document
+                        .getElementById("name")
+                        .value
+                        .trim(),
+
+                age:
+                    document
+                        .getElementById("age")
+                        .value
+                        .trim(),
+
+                gender:
+                    document
+                        .getElementById("gender")
+                        .value,
+
+                height:
+                    document
+                        .getElementById("height")
+                        .value
+                        .trim(),
+
+                village:
+                    document
+                        .getElementById("village")
+                        .value
+                        .trim(),
+
+                mobile:
+                    document
+                        .getElementById("mobile")
+                        .value
+                        .trim(),
+
+                address:
+                    document
+                        .getElementById("address")
+                        .value
+                        .trim(),
+
+                date:
+                    new Date()
+                        .toISOString(),
+
+                consultations:
+                    []
+
+            };
+
+
+            patients.push(patient);
+
+
+            localStorage.setItem(
+                "careSyncPatients",
+                JSON.stringify(patients)
+            );
+
+
+            const success =
+                document
+                    .getElementById("success");
+
+
+            success.innerHTML = `
+
+                <strong>
+                    Patient registered successfully!
+                </strong>
+
+                &nbsp;
+
+                Patient ID:
+
+                <strong>
+                    ${patient.id}
+                </strong>
+
+            `;
+
+
+            success.style.display =
+                "block";
+
+
+            document
+                .getElementById(
+                    "registrationForm"
+                )
+                .reset();
+
+
+            updateStats();
+
+            displayTodayPatients();
+
+
+            document
+                .getElementById("searchResults")
+                .innerHTML = "";
+
+
+            window.scrollTo({
+                top: 0,
+                behavior: "smooth"
+            });
+
+        }
+    );
+
+
+/* ================= SEARCH ================= */
+
+function searchPatients() {
+
+
+    const query =
+        document
+            .getElementById("searchInput")
+            .value
+            .trim()
+            .toLowerCase();
+
+
+    if (!query) {
+
+        displayTodayPatients();
+
+        return;
+
+    }
+
+
+    const results =
+        patients.filter(patient => {
+
+            return (
+
+                String(patient.id || "")
+                    .toLowerCase()
+                    .includes(query)
+
+                ||
+
+                String(patient.name || "")
+                    .toLowerCase()
+                    .includes(query)
+
+                ||
+
+                String(patient.mobile || "")
+                    .toLowerCase()
+                    .includes(query)
+
+            );
+
+        });
+
+
+    displayResults(
+        results,
+        "searchResults"
+    );
+
+}
+
+
+/* ================= DISPLAY RESULTS ================= */
+
+function displayResults(
+    list,
+    elementID
+) {
+
+
+    const tbody =
+        document.getElementById(
+            elementID
+        );
+
+
+    if (list.length === 0) {
+
+        tbody.innerHTML = `
+
+            <tr>
+
+                <td
+                    colspan="6"
+                    style="
+                        text-align:center;
+                        color:#90a4ae;
+                        padding:25px;
+                    ">
+
+                    No patients found.
+
+                </td>
+
+            </tr>
+
+        `;
+
+        return;
+
+    }
+
+
+    tbody.innerHTML =
+        list
+            .slice()
+            .reverse()
+            .map(patient => {
+
+                return `
+
+                    <tr>
+
+                        <td>
+
+                            <span
+                                class="patient-id">
+
+                                ${patient.id}
+
+                            </span>
+
+                        </td>
+
+
+                        <td>
+                            ${escapeHTML(patient.name)}
+                        </td>
+
+
+                        <td>
+                            ${patient.age || "—"}
+                        </td>
+
+
+                        <td>
+                            ${patient.gender || "—"}
+                        </td>
+
+
+                        <td>
+                            ${patient.mobile || "—"}
+                        </td>
+
+
+                        <td>
+
+                            <button
+                                class="view-btn"
+                                onclick="viewPatient('${encodeURIComponent(patient.id)}')">
+
+                                View
+
+                            </button>
+
+                        </td>
+
+                    </tr>
+
+                `;
+
+            })
+            .join("");
+
+}
+
+
+/* ================= TODAY ================= */
+
+function displayTodayPatients() {
+
+
+    const today =
+        new Date()
+            .toLocaleDateString();
+
+
+    const todayList =
+        patients.filter(patient => {
+
+            if (!patient.date) {
+
+                return false;
+
+            }
+
+            return new Date(
+                patient.date
+            ).toLocaleDateString()
+                === today;
+
+        });
+
+
+    displayResults(
+        todayList,
+        "todayPatientsList"
+    );
+
+}
+
+
+displayTodayPatients();
+
+
+/* ================= VIEW PATIENT ================= */
+
+function viewPatient(id) {
+
+    const decoded =
+        decodeURIComponent(id);
+
+
+    window.location.href =
+        "patient.html?patient=" +
+        encodeURIComponent(decoded);
+
+}
+
+
+/* ================= SAFE HTML ================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+
+}
+
+
+/* ================= NAVIGATION ================= */
+
+function scrollToRegistration() {
+
+    document
+        .getElementById("registration")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+function scrollToSearch() {
+
+    document
+        .getElementById("search")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+function scrollToPatients() {
+
+    document
+        .getElementById("patients")
+        .scrollIntoView({
+            behavior: "smooth"
+        });
+
+}
+
+
+/* ================= MOBILE ================= */
+
+function openMobileMenu() {
+
+    document
+        .getElementById("mobileMenu")
+        .classList
+        .add("show");
+
+}
+
+
+function closeMobileMenu() {
+
+    document
+        .getElementById("mobileMenu")
+        .classList
+        .remove("show");
+
+}
+
+
+/* ================= LOGOUT ================= */
+
+function logout() {
+
+    sessionStorage.removeItem(
+        "careSyncRole"
+    );
+
+    window.location.href =
+        "login.html";
+
+}
+
+</script>
+<link rel="stylesheet" href="../css/style.css">
+<link rel="stylesheet" href="../css/reception.css">
+</body>
+
+</html>

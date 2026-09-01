@@ -1,0 +1,369 @@
+.title {
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    color: #123f57;
+}
+
+.title p {
+    color: #78909c;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 20px;
+}
+
+.card h2 {
+    color: #194b63;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #426579;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d6e7ed;
+    border-radius: 8px;
+    outline: none;
+    font-size: 12px;
+    color: #31576a;
+    margin-bottom: 15px;
+}
+
+input:focus,
+select:focus {
+    border-color: #168aad;
+}
+
+.search {
+    display: flex;
+    gap: 10px;
+}
+
+.search input {
+    margin: 0;
+}
+
+.search button {
+    border: none;
+    background: #168aad;
+    color: white;
+    padding: 0 18px;
+    border-radius: 8px;
+}
+
+.patient-result {
+    background: #f1fafc;
+    border: 1px solid #d9edf2;
+    border-radius: 9px;
+    padding: 12px;
+    margin: 15px 0;
+    display: none;
+    font-size: 11px;
+}
+
+.patient-result strong {
+    color: #168aad;
+}
+
+.book {
+    width: 100%;
+    border: none;
+    background: #168aad;
+    color: white;
+    padding: 13px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.book:hover {
+    background: #105f7b;
+}
+
+.success {
+    display: none;
+    background: #edf9f2;
+    color: #25734a;
+    border: 1px solid #ccebd9;
+    padding: 14px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.appointment {
+    border: 1px solid #e1edf2;
+    border-left: 4px solid #168aad;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fbfdfe;
+}
+
+.appointment-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.token {
+    background: #e4f7fb;
+    color: #126782;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.status {
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: bold;
+    background: #fff5d9;
+    color: #916d16;
+}
+
+.status.completed {
+    background: #edf9f2;
+    color: #25734a;
+}
+
+.status.consultation {
+    background: #e8f1ff;
+    color: #285b91;
+}
+
+.patient-name {
+    font-size: 14px;
+    color: #194b63;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.info {
+    font-size: 10px;
+    color: #78909c;
+    line-height: 1.7;
+}
+
+@media (max-width: 800px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .search {
+        flex-direction: column;
+    }
+
+    .search button {
+        padding: 12px;
+    }
+
+    .appointment-top {
+        gap: 10px;
+    }
+}.title {
+    margin-bottom: 25px;
+}
+
+.title h1 {
+    font-size: 28px;
+    color: #123f57;
+}
+
+.title p {
+    color: #78909c;
+    font-size: 12px;
+    margin-top: 6px;
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: 1fr 1.3fr;
+    gap: 20px;
+}
+
+.card h2 {
+    color: #194b63;
+    font-size: 16px;
+    margin-bottom: 20px;
+}
+
+label {
+    display: block;
+    color: #426579;
+    font-size: 10px;
+    font-weight: bold;
+    margin-bottom: 7px;
+}
+
+input,
+select {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d6e7ed;
+    border-radius: 8px;
+    outline: none;
+    font-size: 12px;
+    color: #31576a;
+    margin-bottom: 15px;
+}
+
+input:focus,
+select:focus {
+    border-color: #168aad;
+}
+
+.search {
+    display: flex;
+    gap: 10px;
+}
+
+.search input {
+    margin: 0;
+}
+
+.search button {
+    border: none;
+    background: #168aad;
+    color: white;
+    padding: 0 18px;
+    border-radius: 8px;
+}
+
+.patient-result {
+    background: #f1fafc;
+    border: 1px solid #d9edf2;
+    border-radius: 9px;
+    padding: 12px;
+    margin: 15px 0;
+    display: none;
+    font-size: 11px;
+}
+
+.patient-result strong {
+    color: #168aad;
+}
+
+.book {
+    width: 100%;
+    border: none;
+    background: #168aad;
+    color: white;
+    padding: 13px;
+    border-radius: 9px;
+    font-weight: bold;
+}
+
+.book:hover {
+    background: #105f7b;
+}
+
+.success {
+    display: none;
+    background: #edf9f2;
+    color: #25734a;
+    border: 1px solid #ccebd9;
+    padding: 14px;
+    border-radius: 9px;
+    margin-bottom: 20px;
+    font-size: 12px;
+}
+
+.appointment {
+    border: 1px solid #e1edf2;
+    border-left: 4px solid #168aad;
+    border-radius: 10px;
+    padding: 16px;
+    margin-bottom: 12px;
+    background: #fbfdfe;
+}
+
+.appointment-top {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.token {
+    background: #e4f7fb;
+    color: #126782;
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-weight: bold;
+    font-size: 11px;
+}
+
+.status {
+    padding: 7px 10px;
+    border-radius: 7px;
+    font-size: 9px;
+    font-weight: bold;
+    background: #fff5d9;
+    color: #916d16;
+}
+
+.status.completed {
+    background: #edf9f2;
+    color: #25734a;
+}
+
+.status.consultation {
+    background: #e8f1ff;
+    color: #285b91;
+}
+
+.patient-name {
+    font-size: 14px;
+    color: #194b63;
+    font-weight: bold;
+    margin-bottom: 6px;
+}
+
+.info {
+    font-size: 10px;
+    color: #78909c;
+    line-height: 1.7;
+}
+
+@media (max-width: 800px) {
+
+    .grid {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .search {
+        flex-direction: column;
+    }
+
+    .search button {
+        padding: 12px;
+    }
+
+    .appointment-top {
+        gap: 10px;
+    }
+}
