@@ -351,3 +351,107 @@ setInterval(
     displayQueue,
     3000
 );
+function doctorSearchPatient() {
+
+    const search =
+        document
+            .getElementById("doctorPatientSearch")
+            .value
+            .trim()
+            .toLowerCase();
+
+    const result =
+        document.getElementById(
+            "doctorPatientResult"
+        );
+
+    if (!search) {
+
+        result.style.display = "none";
+
+        return;
+    }
+
+    const patients =
+        JSON.parse(
+            localStorage.getItem(
+                "careSyncPatients"
+            )
+        ) || [];
+
+    const patient =
+        patients.find(
+            p =>
+                String(p.id)
+                    .toLowerCase() === search
+        );
+
+    if (!patient) {
+
+        result.innerHTML = `
+            <p>
+                ❌ No patient found with ID:
+                <strong>${escapeHTML(search)}</strong>
+            </p>
+        `;
+
+        result.style.display = "block";
+
+        return;
+    }
+
+    result.innerHTML = `
+
+        <h3>
+            👤 ${escapeHTML(patient.name)}
+        </h3>
+
+        <p>
+
+            <strong>Patient ID:</strong>
+            ${escapeHTML(patient.id)}
+
+            <br>
+
+            <strong>Age:</strong>
+            ${escapeHTML(patient.age)}
+
+            <br>
+
+            <strong>Gender:</strong>
+            ${escapeHTML(patient.gender)}
+
+            <br>
+
+            <strong>Height:</strong>
+            ${escapeHTML(patient.height || "—")}
+
+            <br>
+
+            <strong>Village:</strong>
+            ${escapeHTML(patient.village || "—")}
+
+            <br>
+
+            <strong>Mobile:</strong>
+            ${escapeHTML(patient.mobile || "—")}
+
+            <br>
+
+            <strong>Address:</strong>
+            ${escapeHTML(patient.address || "—")}
+
+        </p>
+
+        <button
+            class="view-btn"
+            onclick="viewPatient('${encodeURIComponent(patient.id)}')">
+
+            View Full Patient Profile
+
+        </button>
+
+    `;
+
+    result.style.display = "block";
+}

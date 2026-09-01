@@ -194,3 +194,69 @@
         flex: 1;
     }
 }
+.patient-search-card {
+    margin-bottom: 22px;
+}
+
+.doctor-search {
+    display: flex;
+    gap: 10px;
+}
+
+.doctor-search input {
+    flex: 1;
+    padding: 13px;
+    border: 1px solid #d6e7ed;
+    border-radius: 8px;
+    outline: none;
+    font-size: 12px;
+}
+
+.doctor-search input:focus {
+    border-color: #168aad;
+}
+
+.doctor-search button {
+    border: none;
+    background: #168aad;
+    color: white;
+    padding: 0 20px;
+    border-radius: 8px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.doctor-search button:hover {
+    background: #105f7b;
+}
+
+.doctor-patient-result {
+    display: none;
+    margin-top: 18px;
+    padding: 18px;
+    border-radius: 10px;
+    background: #f1fafc;
+    border: 1px solid #d9edf2;
+}
+
+.doctor-patient-result h3 {
+    color: #194b63;
+    margin-bottom: 10px;
+}
+
+.doctor-patient-result p {
+    color: #607d8b;
+    font-size: 11px;
+    line-height: 1.8;
+}
+
+@media (max-width: 600px) {
+
+    .doctor-search {
+        flex-direction: column;
+    }
+
+    .doctor-search button {
+        padding: 12px;
+    }
+}
