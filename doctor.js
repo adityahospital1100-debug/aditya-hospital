@@ -1,55 +1,44 @@
-let appointments =
-    JSON.parse(
-        localStorage.getItem("careSyncAppointments")
-    ) || [];
+let appointments = [];
 
 
 /* GET TODAY IN LOCAL DATE */
 
 function getToday() {
-
     const now = new Date();
 
-    const year = now.getFullYear();
-
-    const month =
-        String(now.getMonth() + 1)
-            .padStart(2, "0");
-
-    const day =
-        String(now.getDate())
-            .padStart(2, "0");
-
-    return `${year}-${month}-${day}`;
+    return (
+        now.getFullYear() +
+        "-" +
+        String(now.getMonth() + 1).padStart(2, "0") +
+        "-" +
+        String(now.getDate()).padStart(2, "0")
+    );
 }
 
 
 /* DISPLAY QUEUE */
 
-function displayQueue() {
+async function displayQueue() {
 
-    appointments =
-        JSON.parse(
-            localStorage.getItem(
-                "careSyncAppointments"
-            )
-        ) || [];
+    const { data, error } = await db
+        .from("appointments")
+        .select("*")
+        .order("token", { ascending: true });
 
+    if (error) {
+        console.error("Appointment loading error:", error);
+        return;
+    }
+
+    appointments = data || [];
 
     const today = getToday();
 
-
     const todayAppointments =
-        appointments
-            .filter(
-                appointment =>
-                    appointment.date === today
-            )
-            .sort(
-                (a, b) =>
-                    Number(a.token) -
-                    Number(b.token)
-            );
+        appointments.filter(
+            appointment =>
+                appointment.date === today
+        );
 
 
     const waiting =
@@ -66,21 +55,13 @@ function displayQueue() {
         ).length;
 
 
-    document.getElementById(
-        "totalToday"
-    ).textContent =
+    document.getElementById("totalToday").textContent =
         todayAppointments.length;
 
-
-    document.getElementById(
-        "waitingCount"
-    ).textContent =
+    document.getElementById("waitingCount").textContent =
         waiting;
 
-
-    document.getElementById(
-        "completedCount"
-    ).textContent =
+    document.getElementById("completedCount").textContent =
         completed;
 
 
@@ -88,14 +69,11 @@ function displayQueue() {
         document.getElementById("queue");
 
 
-    if (
-        todayAppointments.length === 0
-    ) {
+    if (todayAppointments.length === 0) {
 
         queue.innerHTML = `
             <div class="empty">
-                🩺 No patients are scheduled
-                for today.
+                🩺 No patients are scheduled for today.
             </div>
         `;
 
@@ -116,17 +94,11 @@ function createQueueItem(appointment) {
 
     let statusClass = "waiting";
 
-    if (
-        appointment.status ===
-        "In Consultation"
-    ) {
+    if (appointment.status === "In Consultation") {
         statusClass = "consultation";
     }
 
-    if (
-        appointment.status ===
-        "Completed"
-    ) {
+    if (appointment.status === "Completed") {
         statusClass = "completed";
     }
 
@@ -134,10 +106,7 @@ function createQueueItem(appointment) {
     let actionButtons = "";
 
 
-    if (
-        appointment.status ===
-        "Waiting"
-    ) {
+    if (appointment.status === "Waiting") {
 
         actionButtons = `
             <button
@@ -151,10 +120,7 @@ function createQueueItem(appointment) {
     }
 
 
-    if (
-        appointment.status ===
-        "In Consultation"
-    ) {
+    if (appointment.status === "In Consultation") {
 
         actionButtons = `
             <button
@@ -208,13 +174,10 @@ function createQueueItem(appointment) {
 
                     </div>
 
-                    <span
-                        class="status ${statusClass}">
-
+                    <span class="status ${statusClass}">
                         ${escapeHTML(
                             appointment.status
                         )}
-
                     </span>
 
                 </div>
@@ -226,11 +189,9 @@ function createQueueItem(appointment) {
 
                 <button
                     class="view-btn"
-                    onclick="viewPatient(
-                        '${encodeURIComponent(
-                            appointment.patientID
-                        )}'
-                    )">
+                    onclick="viewPatient('${encodeURIComponent(
+                        appointment.patientID
+                    )}')">
 
                     👁 View Patient
 
@@ -247,34 +208,21 @@ function createQueueItem(appointment) {
 
 /* START CONSULTATION */
 
-function startConsultation(id) {
+async function startConsultation(id) {
 
-    appointments =
-        JSON.parse(
-            localStorage.getItem(
-                "careSyncAppointments"
-            )
-        ) || [];
-
-
-    const appointment =
-        appointments.find(
-            appointment =>
-                appointment.id === id
-        );
+    const { error } = await db
+        .from("appointments")
+        .update({
+            status: "In Consultation"
+        })
+        .eq("id", id);
 
 
-    if (!appointment) return;
-
-
-    appointment.status =
-        "In Consultation";
-
-
-    localStorage.setItem(
-        "careSyncAppointments",
-        JSON.stringify(appointments)
-    );
+    if (error) {
+        console.error(error);
+        alert("Could not update appointment.");
+        return;
+    }
 
 
     displayQueue();
@@ -283,34 +231,21 @@ function startConsultation(id) {
 
 /* COMPLETE CONSULTATION */
 
-function completeConsultation(id) {
+async function completeConsultation(id) {
 
-    appointments =
-        JSON.parse(
-            localStorage.getItem(
-                "careSyncAppointments"
-            )
-        ) || [];
-
-
-    const appointment =
-        appointments.find(
-            appointment =>
-                appointment.id === id
-        );
+    const { error } = await db
+        .from("appointments")
+        .update({
+            status: "Completed"
+        })
+        .eq("id", id);
 
 
-    if (!appointment) return;
-
-
-    appointment.status =
-        "Completed";
-
-
-    localStorage.setItem(
-        "careSyncAppointments",
-        JSON.stringify(appointments)
-    );
+    if (error) {
+        console.error(error);
+        alert("Could not update appointment.");
+        return;
+    }
 
 
     displayQueue();
@@ -324,7 +259,6 @@ function viewPatient(id) {
     const patientID =
         decodeURIComponent(id);
 
-
     window.location.href =
         "patient.html?patient=" +
         encodeURIComponent(patientID);
@@ -333,19 +267,17 @@ function viewPatient(id) {
 
 /* SEARCH PATIENT */
 
-function doctorSearchPatient() {
+async function doctorSearchPatient() {
 
     const searchBox =
         document.getElementById(
             "doctorPatientSearch"
         );
 
-
     const result =
         document.getElementById(
             "doctorPatientResult"
         );
-
 
     const patientID =
         searchBox.value
@@ -365,12 +297,24 @@ function doctorSearchPatient() {
     }
 
 
-    const patients =
-        JSON.parse(
-            localStorage.getItem(
-                "careSyncPatients"
-            )
-        ) || [];
+    const { data: patients, error } =
+        await db
+            .from("patients")
+            .select("*");
+
+
+    if (error) {
+
+        console.error(error);
+
+        result.innerHTML =
+            "<p>❌ Could not load patient data.</p>";
+
+        result.style.display =
+            "block";
+
+        return;
+    }
 
 
     const patient =
@@ -414,40 +358,32 @@ function doctorSearchPatient() {
             <br>
 
             <strong>Age:</strong>
-            ${escapeHTML(patient.age)}
+            ${escapeHTML(patient.age || "—")}
 
             <br>
 
             <strong>Gender:</strong>
-            ${escapeHTML(patient.gender)}
+            ${escapeHTML(patient.gender || "—")}
 
             <br>
 
             <strong>Height:</strong>
-            ${escapeHTML(
-                patient.height || "—"
-            )}
+            ${escapeHTML(patient.height || "—")}
 
             <br>
 
             <strong>Village:</strong>
-            ${escapeHTML(
-                patient.village || "—"
-            )}
+            ${escapeHTML(patient.village || "—")}
 
             <br>
 
             <strong>Mobile:</strong>
-            ${escapeHTML(
-                patient.mobile || "—"
-            )}
+            ${escapeHTML(patient.mobile || "—")}
 
             <br>
 
             <strong>Address:</strong>
-            ${escapeHTML(
-                patient.address || "—"
-            )}
+            ${escapeHTML(patient.address || "—")}
 
         </p>
 
@@ -474,39 +410,20 @@ function escapeHTML(text) {
 
     return String(text)
 
-        .replaceAll(
-            "&",
-            "&amp;"
-        )
-
-        .replaceAll(
-            "<",
-            "&lt;"
-        )
-
-        .replaceAll(
-            ">",
-            "&gt;"
-        )
-
-        .replaceAll(
-            '"',
-            "&quot;"
-        )
-
-        .replaceAll(
-            "'",
-            "&#039;"
-        );
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
 }
 
 
-/* START */
+/* INITIAL LOAD */
 
 displayQueue();
 
 
-/* AUTO REFRESH */
+/* AUTO REFRESH EVERY 3 SECONDS */
 
 setInterval(
     displayQueue,

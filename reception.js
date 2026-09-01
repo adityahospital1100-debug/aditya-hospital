@@ -1,3 +1,4 @@
+const db = supabaseClient;
 let patients =
     JSON.parse(localStorage.getItem("careSyncPatients")) || [];
 
@@ -73,10 +74,26 @@ function registerPatient() {
     patients.push(patient);
 
 
-    localStorage.setItem(
-        "careSyncPatients",
-        JSON.stringify(patients)
-    );
+    const { error } = await db
+    .from("patients")
+    .insert([
+        {
+            id: patient.id,
+            name: patient.name,
+            age: patient.age,
+            gender: patient.gender,
+            height: patient.height,
+            village: patient.village,
+            mobile: patient.mobile,
+            address: patient.address
+        }
+    ]);
+
+if (error) {
+    console.error(error);
+    alert("Could not save patient online.");
+    return;
+}
 
 
     alert(

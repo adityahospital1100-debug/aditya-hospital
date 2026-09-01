@@ -553,7 +553,21 @@ body {
 </main>
 
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 
+<script>
+
+const SUPABASE_URL = "sb_publishable_Cp_PmgVNtkYSmzRUMumjNA_w1Yg_30k";
+const SUPABASE_KEY = "sb_publishable_Cp_PmgVNtkYSmzRUMumjNA_w1Yg_30k";
+
+const supabaseClient =
+    supabase.createClient(
+        SUPABASE_URL,
+        SUPABASE_KEY
+    );
+
+const db = supabaseClient;
+</script>
 <script src="doctor.js"></script>
 
 

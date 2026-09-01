@@ -1501,15 +1501,16 @@ const appointment = {
 
 /* SAVE */
 
-appointments.push(
-    appointment
-);
+const { error: appointmentError } =
+    await db
+        .from("appointments")
+        .insert([appointment]);
 
-
-localStorage.setItem(
-    "careSyncAppointments",
-    JSON.stringify(appointments)
-);
+if (appointmentError) {
+    console.error(appointmentError);
+    alert("Patient saved, but appointment could not be created.");
+    return;
+}
 
             const success =
                 document
@@ -1869,6 +1870,17 @@ function logout() {
 </script>
 <link rel="stylesheet" href="../css/style.css">
 <link rel="stylesheet" href="../css/reception.css">
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+
+<script>
+const SUPABASE_URL = "sb_publishable_Cp_PmgVNtkYSmzRUMumjNA_w1Yg_30k";
+const SUPABASE_KEY = "sb_publishable_Cp_PmgVNtkYSmzRUMumjNA_w1Yg_30k";
+
+const supabaseClient = supabase.createClient(
+    SUPABASE_URL,
+    SUPABASE_KEY
+);
+</script>
 </body>
 
 </html>
