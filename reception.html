@@ -1500,16 +1500,7 @@ const appointment = {
 
 /* SAVE */
 
-const { error: appointmentError } =
-    await db
-        .from("appointments")
-        .insert([appointment]);
 
-if (appointmentError) {
-    console.error(appointmentError);
-    alert("Patient saved, but appointment could not be created.");
-    return;
-}
 
             const success =
                 document
