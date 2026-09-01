@@ -1,20 +1,28 @@
+/* =========================================
+   ADITYA HOSPITAL
+   DOCTOR DASHBOARD
+   ========================================= */
+
+
+/* =========================================
+   APPOINTMENTS
+   ========================================= */
+
 let appointments =
     JSON.parse(
-        localStorage.getItem(
-            "careSyncAppointments"
-        )
+        localStorage.getItem("careSyncAppointments")
     ) || [];
 
 
-/* DISPLAY QUEUE */
+/* =========================================
+   DISPLAY TODAY'S QUEUE
+   ========================================= */
 
 function displayQueue() {
 
     appointments =
         JSON.parse(
-            localStorage.getItem(
-                "careSyncAppointments"
-            )
+            localStorage.getItem("careSyncAppointments")
         ) || [];
 
 
@@ -27,53 +35,70 @@ function displayQueue() {
     const todayAppointments =
         appointments
             .filter(
-                a => a.date === today
+                appointment =>
+                    appointment.date === today
             )
             .sort(
                 (a, b) =>
-                    a.token - b.token
+                    Number(a.token) -
+                    Number(b.token)
             );
 
 
+    /* COUNTS */
+
     const waiting =
         todayAppointments.filter(
-            a => a.status === "Waiting"
+            appointment =>
+                appointment.status === "Waiting"
         ).length;
 
 
     const completed =
         todayAppointments.filter(
-            a => a.status === "Completed"
+            appointment =>
+                appointment.status === "Completed"
         ).length;
 
 
-    document.getElementById(
-        "totalToday"
-    ).textContent =
-        todayAppointments.length;
+    const totalToday =
+        document.getElementById("totalToday");
+
+    const waitingCount =
+        document.getElementById("waitingCount");
+
+    const completedCount =
+        document.getElementById("completedCount");
 
 
-    document.getElementById(
-        "waitingCount"
-    ).textContent =
-        waiting;
+    if (totalToday) {
+        totalToday.textContent =
+            todayAppointments.length;
+    }
 
 
-    document.getElementById(
-        "completedCount"
-    ).textContent =
-        completed;
+    if (waitingCount) {
+        waitingCount.textContent =
+            waiting;
+    }
 
+
+    if (completedCount) {
+        completedCount.textContent =
+            completed;
+    }
+
+
+    /* QUEUE */
 
     const queue =
-        document.getElementById(
-            "queue"
-        );
+        document.getElementById("queue");
 
 
-    if (
-        todayAppointments.length === 0
-    ) {
+    if (!queue) return;
+
+
+    if (todayAppointments.length === 0) {
 
         queue.innerHTML = `
 
@@ -92,19 +117,18 @@ function displayQueue() {
 
     queue.innerHTML =
         todayAppointments
-            .map(
-                createQueueItem
-            )
+            .map(createQueueItem)
             .join("");
 }
 
 
-/* QUEUE ITEM */
+/* =========================================
+   CREATE QUEUE ITEM
+   ========================================= */
 
 function createQueueItem(appointment) {
 
-    let statusClass =
-        "waiting";
+    let statusClass = "waiting";
 
 
     if (
@@ -114,7 +138,6 @@ function createQueueItem(appointment) {
 
         statusClass =
             "consultation";
-
     }
 
 
@@ -125,12 +148,13 @@ function createQueueItem(appointment) {
 
         statusClass =
             "completed";
-
     }
 
 
     let actionButtons = "";
 
+
+    /* START CONSULTATION */
 
     if (
         appointment.status ===
@@ -150,6 +174,8 @@ function createQueueItem(appointment) {
         `;
     }
 
+
+    /* COMPLETE CONSULTATION */
 
     if (
         appointment.status ===
@@ -233,6 +259,7 @@ function createQueueItem(appointment) {
 
                 </button>
 
+
                 ${actionButtons}
 
             </div>
@@ -243,7 +270,9 @@ function createQueueItem(appointment) {
 }
 
 
-/* START */
+/* =========================================
+   START CONSULTATION
+   ========================================= */
 
 function startConsultation(id) {
 
@@ -257,7 +286,8 @@ function startConsultation(id) {
 
     const appointment =
         appointments.find(
-            a => a.id === id
+            appointment =>
+                appointment.id === id
         );
 
 
@@ -270,9 +300,7 @@ function startConsultation(id) {
 
     localStorage.setItem(
         "careSyncAppointments",
-        JSON.stringify(
-            appointments
-        )
+        JSON.stringify(appointments)
     );
 
 
@@ -280,7 +308,9 @@ function startConsultation(id) {
 }
 
 
-/* COMPLETE */
+/* =========================================
+   COMPLETE CONSULTATION
+   ========================================= */
 
 function completeConsultation(id) {
 
@@ -294,7 +324,8 @@ function completeConsultation(id) {
 
     const appointment =
         appointments.find(
-            a => a.id === id
+            appointment =>
+                appointment.id === id
         );
 
 
@@ -307,9 +338,7 @@ function completeConsultation(id) {
 
     localStorage.setItem(
         "careSyncAppointments",
-        JSON.stringify(
-            appointments
-        )
+        JSON.stringify(appointments)
     );
 
 
@@ -317,7 +346,9 @@ function completeConsultation(id) {
 }
 
 
-/* VIEW PATIENT */
+/* =========================================
+   VIEW PATIENT
+   ========================================= */
 
 function viewPatient(id) {
 
@@ -327,50 +358,59 @@ function viewPatient(id) {
 
     window.location.href =
         "patient.html?patient=" +
-        encodeURIComponent(
-            patientID
-        );
+        encodeURIComponent(patientID);
 }
 
 
-function escapeHTML(text) {
+/* =========================================
+   SEARCH PATIENT
+   ========================================= */
 
-    return String(text)
-
-        .replaceAll("&", "&amp;")
-        .replaceAll("<", "&lt;")
-        .replaceAll(">", "&gt;")
-        .replaceAll('"', "&quot;")
-        .replaceAll("'", "&#039;");
-}
-
-
-displayQueue();
-
-setInterval(
-    displayQueue,
-    3000
-);
 function doctorSearchPatient() {
 
-    const search =
-        document
-            .getElementById("doctorPatientSearch")
-            .value
-            .trim()
-            .toLowerCase();
+    const searchBox =
+        document.getElementById(
+            "doctorPatientSearch"
+        );
+
 
     const result =
         document.getElementById(
             "doctorPatientResult"
         );
 
-    if (!search) {
 
-        result.style.display = "none";
+    if (!searchBox || !result) {
+        return;
+    }
+
+
+    const patientID =
+        searchBox.value
+            .trim()
+            .toLowerCase();
+
+
+    /* NOTHING ENTERED */
+
+    if (!patientID) {
+
+        result.innerHTML = `
+
+            <p>
+                Please enter a Patient ID.
+            </p>
+
+        `;
+
+        result.style.display =
+            "block";
 
         return;
     }
+
+
+    /* GET PATIENTS */
 
     const patients =
         JSON.parse(
@@ -379,79 +419,159 @@ function doctorSearchPatient() {
             )
         ) || [];
 
+
+    /* FIND PATIENT */
+
     const patient =
         patients.find(
-            p =>
-                String(p.id)
-                    .toLowerCase() === search
+            patient =>
+                String(patient.id)
+                    .trim()
+                    .toLowerCase() ===
+                patientID
         );
+
+
+    /* PATIENT NOT FOUND */
 
     if (!patient) {
 
         result.innerHTML = `
-            <p>
+
+            <div class="empty">
+
                 ❌ No patient found with ID:
-                <strong>${escapeHTML(search)}</strong>
-            </p>
+
+                <strong>
+                    ${escapeHTML(patientID)}
+                </strong>
+
+            </div>
+
         `;
 
-        result.style.display = "block";
+        result.style.display =
+            "block";
 
         return;
     }
 
+
+    /* PATIENT FOUND */
+
     result.innerHTML = `
 
-        <h3>
-            👤 ${escapeHTML(patient.name)}
-        </h3>
+        <div class="patient-found">
 
-        <p>
+            <h3>
+                👤 ${escapeHTML(patient.name)}
+            </h3>
 
-            <strong>Patient ID:</strong>
-            ${escapeHTML(patient.id)}
 
-            <br>
+            <div class="patient-info">
 
-            <strong>Age:</strong>
-            ${escapeHTML(patient.age)}
+                <p>
+                    <strong>Patient ID:</strong>
+                    ${escapeHTML(patient.id)}
+                </p>
 
-            <br>
 
-            <strong>Gender:</strong>
-            ${escapeHTML(patient.gender)}
+                <p>
+                    <strong>Age:</strong>
+                    ${escapeHTML(patient.age)}
+                </p>
 
-            <br>
 
-            <strong>Height:</strong>
-            ${escapeHTML(patient.height || "—")}
+                <p>
+                    <strong>Gender:</strong>
+                    ${escapeHTML(patient.gender)}
+                </p>
 
-            <br>
 
-            <strong>Village:</strong>
-            ${escapeHTML(patient.village || "—")}
+                <p>
+                    <strong>Height:</strong>
+                    ${escapeHTML(
+                        patient.height || "—"
+                    )}
+                </p>
 
-            <br>
 
-            <strong>Mobile:</strong>
-            ${escapeHTML(patient.mobile || "—")}
+                <p>
+                    <strong>Village:</strong>
+                    ${escapeHTML(
+                        patient.village || "—"
+                    )}
+                </p>
 
-            <br>
 
-            <strong>Address:</strong>
-            ${escapeHTML(patient.address || "—")}
+                <p>
+                    <strong>Mobile:</strong>
+                    ${escapeHTML(
+                        patient.mobile || "—"
+                    )}
+                </p>
 
-        </p>
 
-        <button
-            class="view-btn"
-            onclick="viewPatient('${encodeURIComponent(patient.id)}')">
+                <p>
+                    <strong>Address:</strong>
+                    ${escapeHTML(
+                        patient.address || "—"
+                    )}
+                </p>
 
-            View Full Patient Profile
+            </div>
 
-        </button>
+
+            <button
+                class="view-btn"
+                onclick="viewPatient('${encodeURIComponent(patient.id)}')">
+
+                👁 View Full Patient Profile
+
+            </button>
+
+        </div>
 
     `;
 
-    result.style.display = "block";
+
+    result.style.display =
+        "block";
 }
+
+
+/* =========================================
+   SECURITY / HTML ESCAPE
+   ========================================= */
+
+function escapeHTML(text) {
+
+    return String(text)
+
+        .replaceAll("&", "&amp;")
+
+        .replaceAll("<", "&lt;")
+
+        .replaceAll(">", "&gt;")
+
+        .replaceAll('"', "&quot;")
+
+        .replaceAll("'", "&#039;");
+}
+
+
+/* =========================================
+   START DASHBOARD
+   ========================================= */
+
+displayQueue();
+
+
+/* =========================================
+   AUTO REFRESH QUEUE
+   ========================================= */
+
+setInterval(
+    displayQueue,
+    3000
+);
