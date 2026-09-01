@@ -1424,7 +1424,92 @@ document
                 "careSyncPatients",
                 JSON.stringify(patients)
             );
+/* ================= AUTO CREATE DOCTOR QUEUE ================= */
 
+let appointments =
+    JSON.parse(
+        localStorage.getItem("careSyncAppointments")
+    ) || [];
+
+
+/* TODAY'S LOCAL DATE */
+
+const now = new Date();
+
+const today =
+    now.getFullYear() +
+    "-" +
+    String(now.getMonth() + 1).padStart(2, "0") +
+    "-" +
+    String(now.getDate()).padStart(2, "0");
+
+
+/* CURRENT TIME */
+
+const currentTime =
+    now.toLocaleTimeString([], {
+        hour: "2-digit",
+        minute: "2-digit"
+    });
+
+
+/* TOKEN */
+
+const todayAppointments =
+    appointments.filter(
+        appointment =>
+            appointment.date === today
+    );
+
+
+const token =
+    todayAppointments.length + 1;
+
+
+/* CREATE APPOINTMENT */
+
+const appointment = {
+
+    id:
+        "APT-" + Date.now(),
+
+    patientID:
+        patient.id,
+
+    patientName:
+        patient.name,
+
+    doctor:
+        "Dr. Fegde",
+
+    date:
+        today,
+
+    time:
+        currentTime,
+
+    token:
+        token,
+
+    status:
+        "Waiting",
+
+    createdAt:
+        new Date().toISOString()
+};
+
+
+/* SAVE */
+
+appointments.push(
+    appointment
+);
+
+
+localStorage.setItem(
+    "careSyncAppointments",
+    JSON.stringify(appointments)
+);
 
             const success =
                 document
