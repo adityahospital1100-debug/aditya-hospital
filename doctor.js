@@ -1,35 +1,42 @@
-/* =========================================
-   ADITYA HOSPITAL
-   DOCTOR DASHBOARD
-   ========================================= */
-
-
-/* =========================================
-   APPOINTMENTS
-   ========================================= */
-
 let appointments =
     JSON.parse(
         localStorage.getItem("careSyncAppointments")
     ) || [];
 
 
-/* =========================================
-   DISPLAY TODAY'S QUEUE
-   ========================================= */
+/* GET TODAY IN LOCAL DATE */
+
+function getToday() {
+
+    const now = new Date();
+
+    const year = now.getFullYear();
+
+    const month =
+        String(now.getMonth() + 1)
+            .padStart(2, "0");
+
+    const day =
+        String(now.getDate())
+            .padStart(2, "0");
+
+    return `${year}-${month}-${day}`;
+}
+
+
+/* DISPLAY QUEUE */
 
 function displayQueue() {
 
     appointments =
         JSON.parse(
-            localStorage.getItem("careSyncAppointments")
+            localStorage.getItem(
+                "careSyncAppointments"
+            )
         ) || [];
 
 
-    const today =
-        new Date()
-            .toISOString()
-            .split("T")[0];
+    const today = getToday();
 
 
     const todayAppointments =
@@ -45,8 +52,6 @@ function displayQueue() {
             );
 
 
-    /* COUNTS */
-
     const waiting =
         todayAppointments.filter(
             appointment =>
@@ -61,54 +66,37 @@ function displayQueue() {
         ).length;
 
 
-    const totalToday =
-        document.getElementById("totalToday");
-
-    const waitingCount =
-        document.getElementById("waitingCount");
-
-    const completedCount =
-        document.getElementById("completedCount");
+    document.getElementById(
+        "totalToday"
+    ).textContent =
+        todayAppointments.length;
 
 
-    if (totalToday) {
-        totalToday.textContent =
-            todayAppointments.length;
-    }
+    document.getElementById(
+        "waitingCount"
+    ).textContent =
+        waiting;
 
 
-    if (waitingCount) {
-        waitingCount.textContent =
-            waiting;
-    }
+    document.getElementById(
+        "completedCount"
+    ).textContent =
+        completed;
 
-
-    if (completedCount) {
-        completedCount.textContent =
-            completed;
-    }
-
-
-    /* QUEUE */
 
     const queue =
         document.getElementById("queue");
 
 
-    if (!queue) return;
-
-
-    if (todayAppointments.length === 0) {
+    if (
+        todayAppointments.length === 0
+    ) {
 
         queue.innerHTML = `
-
             <div class="empty">
-
                 🩺 No patients are scheduled
                 for today.
-
             </div>
-
         `;
 
         return;
@@ -122,39 +110,29 @@ function displayQueue() {
 }
 
 
-/* =========================================
-   CREATE QUEUE ITEM
-   ========================================= */
+/* CREATE QUEUE ITEM */
 
 function createQueueItem(appointment) {
 
     let statusClass = "waiting";
 
-
     if (
         appointment.status ===
         "In Consultation"
     ) {
-
-        statusClass =
-            "consultation";
+        statusClass = "consultation";
     }
-
 
     if (
         appointment.status ===
         "Completed"
     ) {
-
-        statusClass =
-            "completed";
+        statusClass = "completed";
     }
 
 
     let actionButtons = "";
 
-
-    /* START CONSULTATION */
 
     if (
         appointment.status ===
@@ -162,7 +140,6 @@ function createQueueItem(appointment) {
     ) {
 
         actionButtons = `
-
             <button
                 class="start-btn"
                 onclick="startConsultation('${appointment.id}')">
@@ -170,12 +147,9 @@ function createQueueItem(appointment) {
                 ▶ Start Consultation
 
             </button>
-
         `;
     }
 
-
-    /* COMPLETE CONSULTATION */
 
     if (
         appointment.status ===
@@ -183,7 +157,6 @@ function createQueueItem(appointment) {
     ) {
 
         actionButtons = `
-
             <button
                 class="complete-btn"
                 onclick="completeConsultation('${appointment.id}')">
@@ -191,13 +164,11 @@ function createQueueItem(appointment) {
                 ✓ Complete
 
             </button>
-
         `;
     }
 
 
     return `
-
         <div class="queue-item">
 
             <div class="queue-left">
@@ -206,17 +177,13 @@ function createQueueItem(appointment) {
                     #${appointment.token}
                 </div>
 
-
                 <div>
 
                     <div class="patient-name">
-
                         ${escapeHTML(
                             appointment.patientName
                         )}
-
                     </div>
-
 
                     <div class="patient-details">
 
@@ -232,8 +199,14 @@ function createQueueItem(appointment) {
                             appointment.time
                         )}
 
-                    </div>
+                        <br>
 
+                        👨‍⚕️
+                        ${escapeHTML(
+                            appointment.doctor
+                        )}
+
+                    </div>
 
                     <span
                         class="status ${statusClass}">
@@ -253,26 +226,26 @@ function createQueueItem(appointment) {
 
                 <button
                     class="view-btn"
-                    onclick="viewPatient('${encodeURIComponent(appointment.patientID)}')">
+                    onclick="viewPatient(
+                        '${encodeURIComponent(
+                            appointment.patientID
+                        )}'
+                    )">
 
                     👁 View Patient
 
                 </button>
-
 
                 ${actionButtons}
 
             </div>
 
         </div>
-
     `;
 }
 
 
-/* =========================================
-   START CONSULTATION
-   ========================================= */
+/* START CONSULTATION */
 
 function startConsultation(id) {
 
@@ -308,9 +281,7 @@ function startConsultation(id) {
 }
 
 
-/* =========================================
-   COMPLETE CONSULTATION
-   ========================================= */
+/* COMPLETE CONSULTATION */
 
 function completeConsultation(id) {
 
@@ -346,9 +317,7 @@ function completeConsultation(id) {
 }
 
 
-/* =========================================
-   VIEW PATIENT
-   ========================================= */
+/* VIEW PATIENT */
 
 function viewPatient(id) {
 
@@ -362,9 +331,7 @@ function viewPatient(id) {
 }
 
 
-/* =========================================
-   SEARCH PATIENT
-   ========================================= */
+/* SEARCH PATIENT */
 
 function doctorSearchPatient() {
 
@@ -380,28 +347,16 @@ function doctorSearchPatient() {
         );
 
 
-    if (!searchBox || !result) {
-        return;
-    }
-
-
     const patientID =
         searchBox.value
             .trim()
             .toLowerCase();
 
 
-    /* NOTHING ENTERED */
-
     if (!patientID) {
 
-        result.innerHTML = `
-
-            <p>
-                Please enter a Patient ID.
-            </p>
-
-        `;
+        result.innerHTML =
+            "<p>Please enter a Patient ID.</p>";
 
         result.style.display =
             "block";
@@ -409,8 +364,6 @@ function doctorSearchPatient() {
         return;
     }
 
-
-    /* GET PATIENTS */
 
     const patients =
         JSON.parse(
@@ -420,34 +373,24 @@ function doctorSearchPatient() {
         ) || [];
 
 
-    /* FIND PATIENT */
-
     const patient =
         patients.find(
             patient =>
                 String(patient.id)
-                    .trim()
                     .toLowerCase() ===
                 patientID
         );
 
 
-    /* PATIENT NOT FOUND */
-
     if (!patient) {
 
         result.innerHTML = `
-
-            <div class="empty">
-
+            <p>
                 ❌ No patient found with ID:
-
                 <strong>
                     ${escapeHTML(patientID)}
                 </strong>
-
-            </div>
-
+            </p>
         `;
 
         result.style.display =
@@ -457,81 +400,66 @@ function doctorSearchPatient() {
     }
 
 
-    /* PATIENT FOUND */
-
     result.innerHTML = `
 
-        <div class="patient-found">
+        <h3>
+            👤 ${escapeHTML(patient.name)}
+        </h3>
 
-            <h3>
-                👤 ${escapeHTML(patient.name)}
-            </h3>
+        <p>
 
+            <strong>Patient ID:</strong>
+            ${escapeHTML(patient.id)}
 
-            <div class="patient-info">
+            <br>
 
-                <p>
-                    <strong>Patient ID:</strong>
-                    ${escapeHTML(patient.id)}
-                </p>
+            <strong>Age:</strong>
+            ${escapeHTML(patient.age)}
 
+            <br>
 
-                <p>
-                    <strong>Age:</strong>
-                    ${escapeHTML(patient.age)}
-                </p>
+            <strong>Gender:</strong>
+            ${escapeHTML(patient.gender)}
 
+            <br>
 
-                <p>
-                    <strong>Gender:</strong>
-                    ${escapeHTML(patient.gender)}
-                </p>
+            <strong>Height:</strong>
+            ${escapeHTML(
+                patient.height || "—"
+            )}
 
+            <br>
 
-                <p>
-                    <strong>Height:</strong>
-                    ${escapeHTML(
-                        patient.height || "—"
-                    )}
-                </p>
+            <strong>Village:</strong>
+            ${escapeHTML(
+                patient.village || "—"
+            )}
 
+            <br>
 
-                <p>
-                    <strong>Village:</strong>
-                    ${escapeHTML(
-                        patient.village || "—"
-                    )}
-                </p>
+            <strong>Mobile:</strong>
+            ${escapeHTML(
+                patient.mobile || "—"
+            )}
 
+            <br>
 
-                <p>
-                    <strong>Mobile:</strong>
-                    ${escapeHTML(
-                        patient.mobile || "—"
-                    )}
-                </p>
+            <strong>Address:</strong>
+            ${escapeHTML(
+                patient.address || "—"
+            )}
 
+        </p>
 
-                <p>
-                    <strong>Address:</strong>
-                    ${escapeHTML(
-                        patient.address || "—"
-                    )}
-                </p>
+        <button
+            class="view-btn"
+            onclick="viewPatient(
+                '${encodeURIComponent(patient.id)}'
+            )">
 
-            </div>
+            View Full Patient Profile
 
-
-            <button
-                class="view-btn"
-                onclick="viewPatient('${encodeURIComponent(patient.id)}')">
-
-                👁 View Full Patient Profile
-
-            </button>
-
-        </div>
-
+        </button>
     `;
 
 
@@ -540,36 +468,45 @@ function doctorSearchPatient() {
 }
 
 
-/* =========================================
-   SECURITY / HTML ESCAPE
-   ========================================= */
+/* SECURITY */
 
 function escapeHTML(text) {
 
     return String(text)
 
-        .replaceAll("&", "&amp;")
+        .replaceAll(
+            "&",
+            "&amp;"
+        )
 
-        .replaceAll("<", "&lt;")
+        .replaceAll(
+            "<",
+            "&lt;"
+        )
 
-        .replaceAll(">", "&gt;")
+        .replaceAll(
+            ">",
+            "&gt;"
+        )
 
-        .replaceAll('"', "&quot;")
+        .replaceAll(
+            '"',
+            "&quot;"
+        )
 
-        .replaceAll("'", "&#039;");
+        .replaceAll(
+            "'",
+            "&#039;"
+        );
 }
 
 
-/* =========================================
-   START DASHBOARD
-   ========================================= */
+/* START */
 
 displayQueue();
 
 
-/* =========================================
-   AUTO REFRESH QUEUE
-   ========================================= */
+/* AUTO REFRESH */
 
 setInterval(
     displayQueue,
